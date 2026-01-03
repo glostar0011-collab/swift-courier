@@ -2,28 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwiftCourier Global | Worldwide Enterprise Logistics & Supply Chain Intelligence</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SwiftCourier Global | Enterprise Logistics Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --purple: #4D148C; 
-            --orange: #FF6200; 
-            --navy: #02060f; 
-            --white: #FFFFFF; 
-            --light: #f8fafc;
-            --gray: #64748b;
+            --purple: #4D148C; --orange: #FF6200; --navy: #02060f; --white: #FFFFFF; 
+            --light: #f8fafc; --gray: #64748b; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--navy); overflow-x: hidden; }
 
-        /* --- NAVIGATION --- */
+        /* --- MOBILE-FIRST NAVIGATION --- */
         header { 
-            background: rgba(2, 6, 15, 0.95); 
-            backdrop-filter: blur(15px);
-            padding: 20px 8%; 
+            background: var(--navy); 
+            padding: 15px 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -31,293 +26,203 @@
             width: 100%; 
             top: 0; 
             z-index: 2000; 
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            height: 70px;
         }
-        .logo { font-family: 'Montserrat'; font-size: 24px; font-weight: 900; text-decoration: none; color: white; letter-spacing: -1px; }
+        .logo { font-family: 'Montserrat'; font-size: 20px; font-weight: 900; text-decoration: none; color: white; }
         .logo span { color: var(--orange); }
+
+        /* Hamburger Menu Icon */
+        .menu-toggle { display: block; cursor: pointer; color: white; font-size: 24px; border: 1px solid rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 4px; }
         
-        nav { display: flex; gap: 40px; align-items: center; }
-        nav a { color: white; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; }
-        nav a:hover { color: var(--orange); opacity: 1; }
-        .nav-cta { background: var(--orange); color: white; padding: 12px 24px; border-radius: 2px; font-size: 11px; font-weight: 800; }
-
-        /* --- HERO SECTION --- */
+        /* Navigation Links (Overlay for Mobile) */
+        nav { 
+            position: fixed; top: 70px; left: -100%; width: 100%; height: calc(100vh - 70px); 
+            background: var(--navy); display: flex; flex-direction: column; 
+            padding: 40px; gap: 30px; transition: var(--transition); z-index: 1999;
+        }
+        nav.active { left: 0; }
+        nav a { color: white; text-decoration: none; font-size: 18px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        
+        /* --- MOBILE HERO & QUICK-TRACK --- */
         .hero { 
-            height: 100vh; 
-            background: linear-gradient(to right, rgba(2, 6, 15, 0.9), rgba(2, 6, 15, 0.4)), url('https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=1920&q=80'); 
-            background-size: cover; 
-            background-position: center; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            padding: 0 8%;
-            color: white; 
+            min-height: 90vh; 
+            background: linear-gradient(rgba(2, 6, 15, 0.8), rgba(2, 6, 15, 0.6)), url('https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=1200&q=80'); 
+            background-size: cover; background-position: center; 
+            display: flex; flex-direction: column; justify-content: center; padding: 100px 5% 40px; color: white; text-align: left;
         }
-        .hero-tag { color: var(--orange); font-weight: 800; text-transform: uppercase; letter-spacing: 5px; font-size: 14px; margin-bottom: 20px; display: block; }
-        .hero h1 { font-family: 'Montserrat'; font-size: clamp(50px, 10vw, 110px); margin: 0; line-height: 0.85; text-transform: uppercase; letter-spacing: -4px; }
-        .hero p { font-size: 22px; margin: 30px 0 50px; opacity: 0.8; max-width: 800px; font-weight: 300; line-height: 1.5; }
+        .hero h1 { font-family: 'Montserrat'; font-size: clamp(38px, 10vw, 80px); line-height: 1; text-transform: uppercase; margin: 0; }
+        .hero p { font-size: 16px; margin: 20px 0 35px; opacity: 0.9; line-height: 1.6; }
 
-        /* --- TRACKING TERMINAL --- */
-        .hero-tracker { width: 100%; max-width: 850px; position: relative; }
-        .tracker-form { display: flex; background: white; padding: 8px; border-radius: 4px; box-shadow: 0 50px 100px rgba(0,0,0,0.5); }
-        .tracker-form input { flex: 1; border: none; padding: 25px 30px; font-size: 18px; outline: none; font-weight: 500; }
-        .tracker-form button { background: var(--purple); color: white; border: none; padding: 0 50px; font-family: 'Montserrat'; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-        .tracker-form button:hover { background: var(--orange); }
+        .tracker-form { display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px); }
+        .tracker-form input { padding: 18px; border-radius: 4px; border: none; font-size: 16px; font-weight: 600; }
+        .tracker-form button { background: var(--orange); color: white; padding: 18px; border: none; border-radius: 4px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; font-size: 15px; }
 
-        /* --- STATS SECTION --- */
-        .global-stats { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--navy); color: white; padding: 100px 8%; border-top: 1px solid rgba(255,255,255,0.1); }
-        .stat-card { border-left: 1px solid rgba(255,255,255,0.1); padding-left: 40px; }
-        .stat-card:first-child { border-left: none; }
-        .stat-card h2 { font-family: 'Montserrat'; font-size: 60px; margin: 0; color: var(--orange); }
-        .stat-card p { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; margin-top: 10px; opacity: 0.6; }
+        /* --- STACKING SECTIONS (RESPONSIVE GRIDS) --- */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; background: var(--light); padding: 40px 5%; gap: 20px; }
+        .stat-card { padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .stat-card h2 { color: var(--purple); font-size: 28px; margin: 0; }
+        .stat-card p { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--gray); margin: 5px 0 0; }
 
-        /* --- VERTICAL SOLUTIONS --- */
-        .solutions { padding: 150px 8%; background: var(--light); }
-        .section-header { margin-bottom: 80px; }
-        .section-header span { color: var(--orange); font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: 3px; }
-        .section-header h2 { font-family: 'Montserrat'; font-size: 50px; margin-top: 10px; text-transform: uppercase; }
+        .section-title { padding: 60px 5% 20px; }
+        .section-title h2 { font-family: 'Montserrat'; font-size: 28px; text-transform: uppercase; color: var(--navy); }
 
-        .solutions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .sol-box { background: white; padding: 60px; border-radius: 4px; border-bottom: 0px solid var(--orange); box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
-        .sol-box:hover { transform: translateY(-15px); border-bottom-width: 8px; }
-        .sol-box h3 { font-family: 'Montserrat'; font-size: 24px; margin-bottom: 20px; }
-        .sol-box p { color: var(--gray); font-size: 15px; line-height: 1.8; }
+        .grid-container { display: flex; flex-direction: column; gap: 20px; padding: 0 5% 60px; }
+        .card { background: white; padding: 30px; border-radius: 8px; border: 1px solid #eee; }
+        .card h3 { font-family: 'Montserrat'; margin-bottom: 10px; font-size: 20px; color: var(--purple); }
+        .card p { font-size: 14px; color: var(--gray); line-height: 1.6; }
 
-        /* --- GLOBAL NETWORK SECTION --- */
-        .network-section { padding: 150px 8%; background: var(--navy); color: white; display: flex; gap: 80px; align-items: center; }
-        .network-text { flex: 1; }
-        .network-text h2 { font-family: 'Montserrat'; font-size: 45px; margin-bottom: 30px; text-transform: uppercase; }
-        .network-text p { font-size: 18px; opacity: 0.7; line-height: 1.8; margin-bottom: 40px; }
-        .network-map { flex: 1.2; position: relative; }
-        .network-map img { width: 100%; filter: invert(1) brightness(0.8) opacity(0.3); }
+        /* Feature Rows (Alternating Layout for Desktop, Stacking for Mobile) */
+        .feature-row { display: flex; flex-direction: column; gap: 30px; padding: 60px 5%; border-top: 1px solid #f0f0f0; }
+        .feature-img { width: 100%; height: 250px; border-radius: 12px; overflow: hidden; }
+        .feature-img img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- PROTOCOLS SECTION --- */
-        .protocols { padding: 150px 8%; background: var(--white); }
-        .protocol-row { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; margin-bottom: 120px; align-items: center; }
-        .protocol-content h3 { font-family: 'Montserrat'; font-size: 32px; margin-bottom: 25px; }
-        .protocol-content p { font-size: 16px; color: var(--gray); line-height: 1.8; margin-bottom: 30px; }
-        .protocol-list { list-style: none; padding: 0; }
-        .protocol-list li { padding: 15px 0; border-bottom: 1px solid #eee; font-weight: 700; font-size: 14px; display: flex; align-items: center; }
-        .protocol-list li::before { content: '✓'; color: var(--orange); margin-right: 15px; font-weight: 900; }
-        .protocol-visual { background: #f0f4f8; height: 500px; border-radius: 8px; overflow: hidden; }
+        /* --- FOOTER --- */
+        footer { background: var(--navy); color: white; padding: 60px 5%; }
+        .footer-col { margin-bottom: 40px; }
+        .footer-col h4 { color: var(--orange); text-transform: uppercase; margin-bottom: 20px; font-size: 14px; }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: white; text-decoration: none; opacity: 0.6; font-size: 14px; }
 
-        /* --- ENTERPRISE PARTNERS --- */
-        .partners { padding: 80px 8%; border-top: 1px solid #eee; text-align: center; }
-        .partner-flex { display: flex; justify-content: space-between; align-items: center; opacity: 0.4; filter: grayscale(1); margin-top: 50px; }
-        .partner-flex span { font-family: 'Montserrat'; font-weight: 900; font-size: 24px; letter-spacing: -1px; }
-
-        /* --- FOOTER SECTIONS --- */
-        .main-footer { background: var(--navy); color: white; padding: 120px 8% 50px; border-top: 5px solid var(--purple); }
-        .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; }
-        .f-col h4 { font-family: 'Montserrat'; color: var(--orange); text-transform: uppercase; letter-spacing: 2px; font-size: 14px; margin-bottom: 30px; }
-        .f-col p { font-size: 14px; opacity: 0.6; line-height: 2; }
-        .f-links { list-style: none; padding: 0; }
-        .f-links li { margin-bottom: 15px; }
-        .f-links a { color: white; text-decoration: none; font-size: 14px; opacity: 0.5; }
-        .f-links a:hover { opacity: 1; color: var(--orange); }
-
-        .newsletter input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 15px; width: 100%; color: white; margin-bottom: 10px; }
-        .newsletter button { background: var(--purple); color: white; border: none; padding: 15px; width: 100%; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-
-        .copyright { margin-top: 100px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-size: 12px; opacity: 0.4; letter-spacing: 2px; }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 1200px) {
-            .global-stats { grid-template-columns: 1fr 1fr; gap: 60px; }
-            .solutions-grid { grid-template-columns: 1fr 1fr; }
-            .network-section { flex-direction: column; }
-        }
-        @media (max-width: 768px) {
-            header { padding: 15px 5%; }
-            nav { display: none; }
-            .hero h1 { font-size: 55px; }
-            .hero p { font-size: 16px; }
-            .tracker-form { flex-direction: column; }
-            .tracker-form button { padding: 25px; }
-            .solutions-grid { grid-template-columns: 1fr; }
-            .protocol-row { grid-template-columns: 1fr; gap: 50px; }
-            .f-grid { grid-template-columns: 1fr; }
+        /* --- DESKTOP ADJUSTMENTS (Laptops/PCs) --- */
+        @media (min-width: 992px) {
+            header { padding: 0 8%; }
+            .menu-toggle { display: none; }
+            nav { position: static; height: auto; width: auto; flex-direction: row; padding: 0; top: 0; background: transparent; }
+            nav a { font-size: 11px; border: none; padding: 0; }
+            
+            .hero { padding: 0 15%; text-align: center; align-items: center; }
+            .tracker-form { flex-direction: row; width: 800px; padding: 10px; }
+            .tracker-form input { flex: 1; }
+            
+            .stats-grid { grid-template-columns: repeat(4, 1fr); padding: 80px 8%; }
+            .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0 8% 100px; }
+            
+            .feature-row { flex-direction: row; align-items: center; padding: 100px 8%; }
+            .feature-row.reverse { flex-direction: row-reverse; }
+            .feature-text { flex: 1; }
+            .feature-img { flex: 1; height: 450px; }
+            
+            .footer-wrap { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="index.html" class="logo">SWIFT<span>COURIER</span> GLOBAL</a>
-    <nav>
-        <a href="index.html">Network Home</a>
-        <a href="about.html">About Operations</a>
-        <a href="#solutions">Services</a>
-        <a href="tracking.html" class="nav-cta">Terminal Login</a>
+    <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="tracking.html">Track Asset</a>
+        <a href="tracking.html" style="color:var(--orange)">Terminal Login</a>
     </nav>
 </header>
 
 <section class="hero">
-    <span class="hero-tag">Enterprise Logistics Terminal</span>
-    <h1>BEYOND<br><span style="color:var(--orange)">BOUNDARIES</span></h1>
-    <p>Leveraging deep-chain intelligence and a high-velocity global network to move mission-critical assets across continents with surgical precision.</p>
-
-    <div class="hero-tracker">
-        <form class="tracker-form" action="tracking.html" method="GET">
-            <input type="text" name="id" placeholder="Enter Consignment ID or Air Waybill..." required>
-            <button type="submit">Track Asset</button>
-        </form>
-    </div>
+    <h1>SECURE<br>LOGISTICS</h1>
+    <p>Enterprise-grade freight forwarding and high-security asset management for global operations.</p>
+    <form class="tracker-form" action="tracking.html" method="GET">
+        <input type="text" name="id" placeholder="Consignment ID..." required>
+        <button type="submit">Track Now</button>
+    </form>
 </section>
 
-<section class="global-stats">
-    <div class="stat-card">
-        <h2>480+</h2>
-        <p>Global Transit Hubs</p>
-    </div>
-    <div class="stat-card">
-        <h2>1.2M</h2>
-        <p>Annual Cargo Tons</p>
-    </div>
-    <div class="stat-card">
-        <h2>99.9%</h2>
-        <p>On-Time Execution</p>
-    </div>
-    <div class="stat-card">
-        <h2>24/7</h2>
-        <p>Active Command Monitor</p>
-    </div>
-</section>
 
-<section class="solutions" id="solutions">
-    <div class="section-header">
-        <span>Vertical Excellence</span>
-        <h2>Industry Solutions</h2>
-    </div>
-    
-    <div class="solutions-grid">
-        <div class="sol-box">
-            <h3>Aerospace & Defense</h3>
-            <p>Specialized handling for AOG (Aircraft on Ground) parts and defense-grade technology with strictly vetted escort protocols.</p>
-        </div>
-        <div class="sol-box">
-            <h3>Healthcare Logistics</h3>
-            <p>Validated cold-chain solutions for life sciences, ensuring temperature-sensitive medical assets remain within 0.5°C tolerance.</p>
-        </div>
-        <div class="sol-box">
-            <h3>High-Tech & Circuits</h3>
-            <p>Anti-static environment controls and moisture-sensitive handling for the world's most delicate semiconductor and hardware assets.</p>
-        </div>
-        <div class="sol-box">
-            <h3>Global E-Commerce</h3>
-            <p>Scalable last-mile distribution networks that integrate directly with enterprise ERPs for seamless international fulfillment.</p>
-        </div>
-        <div class="sol-box">
-            <h3>Automotive Supply</h3>
-            <p>Just-in-time (JIT) delivery systems for manufacturing plants, keeping global assembly lines moving without interruption.</p>
-        </div>
-        <div class="sol-box">
-            <h3>Luxury & Fine Art</h3>
-            <p>Discreet, white-glove transport for high-value assets, utilizing climate-controlled transit and armored handling if required.</p>
-        </div>
-    </div>
-</section>
 
-<section class="network-section">
-    <div class="network-text">
-        <span>The Command Center</span>
-        <h2>Infinite Network Coverage</h2>
-        <p>Our infrastructure spans 195 countries, utilizing a hybrid fleet of air-freight, ocean liners, and autonomous ground sorting hubs.</p>
-        <p>With SwiftCourier Global, your supply chain is managed through a single centralized intelligence portal, giving you total visibility from origin manufacture to destination delivery.</p>
-        <a href="about.html" style="color:var(--orange); text-decoration: none; font-weight: 900; letter-spacing: 2px;">DISCOVER OUR FLEET →</a>
-    </div>
-    <div class="network-map">
-        
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg" alt="World Map">
-    </div>
-</section>
+<div class="stats-grid">
+    <div class="stat-card"><h2>480+</h2><p>Transit Hubs</p></div>
+    <div class="stat-card"><h2>1.2M</h2><p>Tons Annually</p></div>
+    <div class="stat-card"><h2>99.9%</h2><p>Accuracy</p></div>
+    <div class="stat-card"><h2>24/7</h2><p>Live Support</p></div>
+</div>
 
-<section class="protocols">
-    <div class="protocol-row">
-        <div class="protocol-content">
-            <h3>Strategic Security Matrix</h3>
-            <p>We don't just move boxes; we secure assets. Our Strategic Security Matrix (SSM) is a multi-layered defense protocol integrated into every shipment.</p>
-            <ul class="protocol-list">
-                <li>AES-256 Digital Tracking Encryption</li>
-                <li>Biometric Custody Transfer Logs</li>
-                <li>Real-Time Geo-Fencing Alerts</li>
-                <li>Tamper-Evident IoT Sensor Integration</li>
-                <li>Autonomous Hub Sorting & Validation</li>
+<div class="section-title">
+    <h2>Our Service Portfolio</h2>
+</div>
+
+<div class="grid-container">
+    <div class="card">
+        <h3>Air Freight</h3>
+        <p>Global priority air-bridge solutions for time-sensitive enterprise assets and medical supplies.</p>
+    </div>
+    <div class="card">
+        <h3>Ocean Cargo</h3>
+        <p>Full-container and LCL maritime logistics covering every major international port network.</p>
+    </div>
+    <div class="card">
+        <h3>Secure Storage</h3>
+        <p>Climate-controlled, biometric-secured warehousing for high-value tech and luxury inventory.</p>
+    </div>
+    <div class="card">
+        <h3>Road Networks</h3>
+        <p>Intelligent routing for transcontinental trucking and secure last-mile delivery services.</p>
+    </div>
+    <div class="card">
+        <h3>Customs Brokerage</h3>
+        <p>Digital clearance protocols to ensure your cargo moves through international borders without delay.</p>
+    </div>
+    <div class="card">
+        <h3>Supply Intelligence</h3>
+        <p>Advanced data reporting and lifecycle visibility for your entire global supply chain.</p>
+    </div>
+</div>
+
+<div class="feature-row">
+    <div class="feature-text">
+        <h2>Global Security Protocols</h2>
+        <p>Every shipment is protected by our proprietary Security Matrix, utilizing AES-256 encryption for data and biometric verification for physical custody transfers.</p>
+    </div>
+    <div class="feature-img">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80">
+    </div>
+</div>
+
+<div class="feature-row reverse">
+    <div class="feature-text">
+        <h2>Next-Gen Fleet</h2>
+        <p>We are investing in the future of sustainable trade with a modern fleet of low-emission vessels and electric last-mile delivery vehicles.</p>
+    </div>
+    <div class="feature-img">
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80">
+    </div>
+</div>
+
+<footer>
+    <div class="footer-wrap">
+        <div class="footer-col">
+            <a href="#" class="logo">SWIFT<span>COURIER</span></a>
+            <p style="margin-top:20px; opacity:0.6; font-size:14px;">The world's premier logistics terminal. Managing the global flow of high-value assets with absolute security.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Operations</a></li>
+                <li><a href="tracking.html">Tracking</a></li>
             </ul>
         </div>
-        <div class="protocol-visual">
-            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" style="width:100%; height:100%; object-fit:cover;">
-        </div>
-    </div>
-
-    <div class="protocol-row" style="direction: rtl;">
-        <div class="protocol-content" style="direction: ltr;">
-            <h3>Next-Gen Sustainability</h3>
-            <p>Leading the transition to Net-Zero logistics. We are aggressively modernizing our fleet to reduce the carbon footprint of global trade.</p>
-            <ul class="protocol-list">
-                <li>Electric Last-Mile Delivery Fleet</li>
-                <li>Sustainable Aviation Fuel (SAF) Partnerships</li>
-                <li>Solar-Powered Distribution Centers</li>
-                <li>Biodegradable Smart-Packaging Solutions</li>
-                <li>AI-Optimized Routing to Minimize Fuel Burn</li>
-            </ul>
-        </div>
-        <div class="protocol-visual">
-            <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=800&q=80" style="width:100%; height:100%; object-fit:cover;">
-        </div>
-    </div>
-</section>
-
-<section class="partners">
-    <span>Trusted By Global Industry Leaders</span>
-    <div class="partner-flex">
-        <span>AEROSPACE-X</span>
-        <span>TECH-TRONIC</span>
-        <span>GLOBAL-MED</span>
-        <span>LUXE-AUTO</span>
-        <span>PRIME-FORWARD</span>
-    </div>
-</section>
-
-<footer class="main-footer">
-    <div class="f-grid">
-        <div class="f-col">
-            <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
-            <p style="margin-top:25px;">The definitive standard in global logistics. We provide the infrastructure, technology, and human intelligence required to move the world's most important assets safely and swiftly.</p>
-        </div>
-        <div class="f-col">
-            <h4>Global Portals</h4>
-            <ul class="f-links">
-                <li><a href="index.html">Main Terminal</a></li>
-                <li><a href="tracking.html">Asset Tracking</a></li>
-                <li><a href="about.html">Network Status</a></li>
-                <li><a href="#">Client Portal Login</a></li>
-                <li><a href="#">Enterprise API</a></li>
-            </ul>
-        </div>
-        <div class="f-col">
-            <h4>Operations</h4>
-            <ul class="f-links">
-                <li><a href="about.html">Our Fleet</a></li>
-                <li><a href="#">Compliance Registry</a></li>
-                <li><a href="#">Customs Clearance</a></li>
+        <div class="footer-col">
+            <h4>Support</h4>
+            <ul class="footer-links">
+                <li><a href="#">Help Center</a></li>
                 <li><a href="#">Security Matrix</a></li>
-                <li><a href="#">Global Careers</a></li>
+                <li><a href="#">Contact Support</a></li>
             </ul>
         </div>
-        <div class="f-col newsletter">
-            <h4>Intelligence Brief</h4>
-            <p style="margin-bottom:20px;">Stay updated on global trade routes and supply chain disruptions.</p>
-            <form>
-                <input type="email" placeholder="Corporate Email Address">
-                <button type="button">Subscribe</button>
-            </form>
-        </div>
     </div>
-    <div class="copyright">
-        &copy; 2026 SWIFTCOURIER GLOBAL LOGISTICS HOLDINGS INC. // SECURE DATA PORTAL v9.4 // ALL RIGHTS RESERVED.
+    <div style="text-align:center; padding-top:40px; font-size:11px; opacity:0.3; letter-spacing:1px; border-top:1px solid rgba(255,255,255,0.05);">
+        &copy; 2026 SWIFTCOURIER GLOBAL LOGISTICS HOLDINGS.
     </div>
 </footer>
+
+<script>
+    function toggleMenu() {
+        const nav = document.getElementById('mainNav');
+        nav.classList.toggle('active');
+    }
+</script>
 
 </body>
 </html>
