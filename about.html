@@ -2,97 +2,220 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Our Operations | SwiftCourier Global</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>About Our Global Network | SwiftCourier Global</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --purple: #4D148C; --orange: #FF6200; --navy: #02060f; --white: #FFFFFF; --bg: #ffffff; }
+        :root { 
+            --purple: #4D148C; --orange: #FF6200; --navy: #02060f; 
+            --white: #ffffff; --light: #f9fafb; --gray: #64748b;
+        }
+
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--navy); line-height: 1.6; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--navy); line-height: 1.7; }
 
-        /* HEADER */
-        header { background: var(--navy); padding: 25px 8%; display: flex; justify-content: space-between; align-items: center; color: white; border-bottom: 4px solid var(--purple); }
-        .logo { font-family: 'Montserrat'; font-size: 24px; font-weight: 900; text-decoration: none; color: white; }
+        /* --- NAVIGATION --- */
+        header { 
+            background: var(--navy); padding: 20px 5%; display: flex; 
+            justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--purple);
+        }
+        .logo { font-family: 'Montserrat'; font-size: 22px; font-weight: 900; text-decoration: none; color: white; }
         .logo span { color: var(--orange); }
+        nav a { color: white; text-decoration: none; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-left: 20px; opacity: 0.8; }
 
-        /* HERO SECTION */
-        .about-hero { background: var(--navy); color: white; padding: 100px 8%; text-align: center; position: relative; overflow: hidden; }
-        .about-hero h1 { font-family: 'Montserrat'; font-size: 50px; margin: 0; text-transform: uppercase; }
-        .about-hero p { max-width: 700px; margin: 20px auto; font-size: 18px; opacity: 0.8; }
+        /* --- HERO SECTION --- */
+        .about-hero { 
+            background: linear-gradient(rgba(2, 6, 15, 0.85), rgba(2, 6, 15, 0.85)), url('https://images.unsplash.com/photo-1570672629891-eb37825d4808?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; padding: 120px 5%; text-align: center; color: white;
+        }
+        .about-hero h1 { font-family: 'Montserrat'; font-size: clamp(35px, 8vw, 70px); text-transform: uppercase; margin: 0; letter-spacing: -2px; }
+        .about-hero p { max-width: 800px; margin: 20px auto; font-size: 18px; opacity: 0.9; font-weight: 300; }
 
-        /* MISSION SECTION */
-        .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 100px 8%; align-items: center; }
-        .mission-text h2 { font-family: 'Montserrat'; font-size: 36px; color: var(--purple); }
-        .mission-image { background: #f0f0f0; height: 400px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ccc; border: 2px dashed #ddd; }
+        /* --- GLOBAL STATS (MOBILE STACKED) --- */
+        .stats-grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); 
+            background: var(--purple); color: white; padding: 60px 5%; gap: 30px;
+        }
+        .stat-item { text-align: center; border-right: 1px solid rgba(255,255,255,0.1); }
+        .stat-item:last-child { border: none; }
+        .stat-item h2 { font-family: 'Montserrat'; font-size: 40px; margin: 0; color: var(--orange); }
+        .stat-item p { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; opacity: 0.7; }
 
-        /* STATS BAR */
-        .stats-bar { background: var(--purple); color: white; padding: 60px 8%; display: flex; justify-content: space-around; text-align: center; }
-        .stat-item h3 { font-family: 'Montserrat'; font-size: 40px; margin: 0; color: var(--orange); }
-        .stat-item p { margin: 5px 0 0; text-transform: uppercase; font-size: 12px; letter-spacing: 2px; }
+        /* --- CORE MISSION --- */
+        .mission-section { padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
+        .content-flex { display: flex; flex-direction: column; gap: 60px; }
+        .mission-text h2 { font-family: 'Montserrat'; font-size: 32px; color: var(--purple); margin-bottom: 25px; }
+        .mission-text p { font-size: 16px; color: var(--gray); margin-bottom: 20px; }
+        .mission-img { width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .mission-img img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* CORE VALUES */
-        .values { padding: 100px 8%; background: #f9f9f9; text-align: center; }
-        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
-        .value-card { background: white; padding: 40px; border-bottom: 4px solid var(--orange); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .value-card h4 { font-family: 'Montserrat'; font-size: 20px; margin-bottom: 15px; color: var(--navy); }
+        /* --- CORPORATE TIMELINE --- */
+        .timeline { padding: 100px 5%; background: var(--light); text-align: center; }
+        .timeline-container { position: relative; max-width: 800px; margin: 50px auto; padding: 20px 0; }
+        .timeline-container::after { content: ''; position: absolute; width: 2px; background: var(--purple); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
+        
+        .t-item { padding: 10px 40px; position: relative; width: 50%; text-align: right; }
+        .t-item.right { left: 50%; text-align: left; }
+        .t-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: var(--white); border: 4px solid var(--orange); top: 15px; border-radius: 50%; z-index: 1; }
+        .t-item.right::after { left: -10px; }
+        .t-year { font-family: 'Montserrat'; font-weight: 900; color: var(--purple); font-size: 20px; }
+        .t-desc { font-size: 14px; color: var(--gray); margin-top: 5px; }
 
-        footer { background: var(--navy); color: white; padding: 50px 8%; text-align: center; font-size: 14px; }
+        /* --- GLOBAL HUBS GRID --- */
+        .hubs { padding: 100px 5%; }
+        .hubs-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
+        .hub-card { background: white; border: 1px solid #eee; padding: 30px; border-radius: 8px; transition: 0.3s; }
+        .hub-card:hover { border-color: var(--orange); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .hub-card h3 { font-family: 'Montserrat'; font-size: 18px; margin-bottom: 10px; color: var(--navy); }
+        .hub-card ul { padding: 0; list-style: none; font-size: 13px; color: var(--gray); }
+        .hub-card li { margin-bottom: 5px; display: flex; align-items: center; }
+        .hub-card li::before { content: '•'; color: var(--orange); font-weight: bold; margin-right: 10px; }
 
-        @media (max-width: 800px) { .mission-grid { grid-template-columns: 1fr; } .about-hero h1 { font-size: 32px; } }
+        /* --- CTA SECTION --- */
+        .cta-banner { background: var(--navy); padding: 80px 5%; text-align: center; color: white; }
+        .cta-btn { 
+            display: inline-block; padding: 20px 40px; background: var(--orange); color: white; 
+            text-decoration: none; font-family: 'Montserrat'; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; margin-top: 30px;
+        }
+
+        /* --- FOOTER --- */
+        footer { background: #01040a; color: white; padding: 60px 5%; border-top: 1px solid rgba(255,255,255,0.1); }
+        .f-wrap { display: flex; flex-direction: column; gap: 40px; }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (min-width: 992px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); padding: 80px 8%; }
+            .content-flex { flex-direction: row; align-items: center; }
+            .mission-text, .mission-img { flex: 1; }
+            .hubs-grid { grid-template-columns: repeat(3, 1fr); }
+            .f-wrap { flex-direction: row; justify-content: space-between; }
+            .t-item { padding: 20px 60px; }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-container::after { left: 31px; }
+            .t-item { width: 100%; padding-left: 70px; padding-right: 25px; text-align: left; }
+            .t-item.right { left: 0; }
+            .t-item::after { left: 21px; }
+            nav { display: none; }
+        }
     </style>
 </head>
 <body>
 
 <header>
     <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tracking.html">Track Asset</a>
+    </nav>
 </header>
 
 <section class="about-hero">
-    <h1>Global Intelligence.</h1>
-    <h1>Localized Care.</h1>
-    <p>We provide enterprise-grade logistics solutions for high-value assets across 6 continents.</p>
+    <h1>Our Global Legacy</h1>
+    <p>Providing the backbone for international trade through secure, high-velocity logistics and deep-chain intelligence since 1994.</p>
 </section>
 
-<div class="stats-bar">
-    <div class="stat-item"><h3>200+</h3><p>Global Hubs</p></div>
-    <div class="stat-item"><h3>15M+</h3><p>Delivered Parcels</p></div>
-    <div class="stat-item"><h3>24/7</h3><p>Secure Monitoring</p></div>
-    <div class="stat-item"><h3>99.9%</h3><p>Success Rate</p></div>
+<div class="stats-grid">
+    <div class="stat-item"><h2>195</h2><p>Nations Connected</p></div>
+    <div class="stat-item"><h2>2.4k</h2><p>Fleet Vessels</p></div>
+    <div class="stat-item"><h2>18M</h2><p>Annual Dispatches</p></div>
+    <div class="stat-item"><h2>100%</h2><p>Carbon Offset</p></div>
 </div>
 
-
-
-<section class="mission-grid">
-    <div class="mission-text">
-        <h2>The SwiftCourier Standard</h2>
-        <p>Founded on the principles of speed and absolute security, SwiftCourier Global has grown from a local courier service into a worldwide leader in specialized logistics.</p>
-        <p>Our infrastructure is designed to handle everything from standard e-commerce fulfillment to high-security diplomatic and medical freight. With our proprietary tracking technology, we ensure total transparency at every nautical mile.</p>
-    </div>
-    <div class="mission-image">
-        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Warehouse" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+<section class="mission-section">
+    <div class="content-flex">
+        <div class="mission-text">
+            <h2>Pioneering the Future of Cargo</h2>
+            <p>SwiftCourier Global was founded on a singular premise: that distance should never be a barrier to enterprise. What started as a regional courier service has evolved into a global powerhouse of logistics technology.</p>
+            <p>Our infrastructure combines traditional heavy-lift capabilities with modern AI-driven routing, ensuring that every asset—from a single document to a 40-foot container—is managed with the same level of cryptographic security and operational priority.</p>
+        </div>
+        <div class="mission-img">
+            <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=800&q=80" alt="Logistics Hub">
+        </div>
     </div>
 </section>
 
-<section class="values">
-    <h2 style="font-family:'Montserrat'; font-size: 32px;">Why Choose Our Network?</h2>
-    <div class="values-grid">
-        <div class="value-card">
-            <h4>Security First</h4>
-            <p>Every shipment is protected by 256-bit data encryption and physical security protocols at every hub.</p>
+
+
+<section class="timeline">
+    <h2 style="font-family:Montserrat; font-size:32px; text-transform:uppercase;">Decades of Excellence</h2>
+    <div class="timeline-container">
+        <div class="t-item">
+            <div class="t-year">1994</div>
+            <div class="t-desc">SwiftCourier founded with 3 delivery vehicles and a focus on domestic security.</div>
         </div>
-        <div class="value-card">
-            <h4>Global Reach</h4>
-            <p>Our partnerships with major airlines and maritime fleets allow us to deliver anywhere on the map.</p>
+        <div class="t-item right">
+            <div class="t-year">2005</div>
+            <div class="t-desc">Expansion into Trans-Atlantic air freight and medical cold-chain logistics.</div>
         </div>
-        <div class="value-card">
-            <h4>Real-Time Tech</h4>
-            <p>Our tracking system is linked directly to our global dispatch database, providing the most accurate data in the industry.</p>
+        <div class="t-item">
+            <div class="t-year">2012</div>
+            <div class="t-desc">Launch of our proprietary Real-Time Asset Tracking Terminal for enterprise clients.</div>
+        </div>
+        <div class="t-item right">
+            <div class="t-year">2020</div>
+            <div class="t-desc">Full integration of AES-256 encryption across all digital shipping manifests.</div>
+        </div>
+        <div class="t-item">
+            <div class="t-year">2026</div>
+            <div class="t-desc">Leading the industry in Net-Zero carbon shipping and autonomous hub sorting.</div>
         </div>
     </div>
+</section>
+
+<section class="hubs">
+    <h2 style="font-family:Montserrat; font-size:32px; text-align:center; text-transform:uppercase;">Global Strategic Hubs</h2>
+    <div class="hubs-grid">
+        <div class="hub-card">
+            <h3>EMEA Region</h3>
+            <ul>
+                <li>London Gateway (LHR-1)</li>
+                <li>Frankfurt Logistics Core (FRA-4)</li>
+                <li>Dubai Global Transit (DXB-2)</li>
+                <li>Johannesburg Distribution</li>
+            </ul>
+        </div>
+        <div class="hub-card">
+            <h3>Americas Network</h3>
+            <ul>
+                <li>New York Port Authority</li>
+                <li>Miami Gateway (LatAm Hub)</li>
+                <li>Los Angeles Tech Terminal</li>
+                <li>São Paulo Regional Center</li>
+            </ul>
+        </div>
+        <div class="hub-card">
+            <h3>APAC Operations</h3>
+            <ul>
+                <li>Singapore Strategic Port</li>
+                <li>Hong Kong Air Terminal</li>
+                <li>Tokyo Precision Hub</li>
+                <li>Sydney Logistics Point</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="cta-banner">
+    <h2 style="font-family:Montserrat; font-size:36px; margin:0;">READY TO SCALE?</h2>
+    <p style="opacity:0.7; margin-top:10px;">Connect your supply chain to the most secure network on earth.</p>
+    <a href="tracking.html" class="cta-btn">Access Tracking Portal</a>
 </section>
 
 <footer>
-    <p>&copy; 2026 SwiftCourier Global Operations. All Rights Reserved.</p>
+    <div class="f-wrap">
+        <div>
+            <a href="#" class="logo">SWIFT<span>COURIER</span></a>
+            <p style="font-size:12px; opacity:0.5; margin-top:20px; max-width:300px;">The definitive standard in global freight forwarding. Managing mission-critical assets for the world's leading industries.</p>
+        </div>
+        <div style="font-size:12px; opacity:0.4;">
+            &copy; 2026 SWIFTCOURIER GLOBAL LOGISTICS HOLDINGS.<br>ALL RIGHTS RESERVED. SECURE PORTAL v9.4
+        </div>
+    </div>
 </footer>
 
 </body>
