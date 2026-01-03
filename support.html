@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Support Terminal | SwiftCourier Global Help Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --purple: #4D148C; --orange: #FF6200; --navy: #02060f; 
+            --white: #ffffff; --light: #f4f7f9; --gray: #64748b; --green: #2ecc71;
+        }
+
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--light); color: var(--navy); line-height: 1.6; }
+
+        /* --- NAVIGATION --- */
+        header { 
+            background: var(--navy); padding: 15px 5%; display: flex; 
+            justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--purple);
+        }
+        .logo { font-family: 'Montserrat'; font-size: 20px; font-weight: 900; text-decoration: none; color: white; }
+        .logo span { color: var(--orange); }
+        nav a { color: white; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-left: 20px; opacity: 0.7; }
+
+        /* --- SEARCH HERO --- */
+        .support-hero { 
+            background: var(--navy); color: white; padding: 100px 5% 140px; text-align: center;
+            background-image: radial-gradient(circle at center, #1a1f2c 0%, #02060f 100%);
+        }
+        .support-hero h1 { font-family: 'Montserrat'; font-size: clamp(30px, 6vw, 50px); margin: 0; text-transform: uppercase; }
+        .support-hero p { opacity: 0.6; margin: 15px 0 40px; }
+        
+        .search-wrapper { max-width: 700px; margin: 0 auto; position: relative; }
+        .search-wrapper input { 
+            width: 100%; padding: 25px 30px; border-radius: 50px; border: none; 
+            font-size: 18px; font-family: 'Inter'; outline: none; box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* --- LIVE STATUS BAR --- */
+        .status-bar { 
+            max-width: 1100px; margin: -50px auto 50px; background: white; 
+            border-radius: 12px; padding: 25px 40px; display: flex; 
+            justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .status-indicator { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; }
+        .dot { width: 12px; height: 12px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* --- CATEGORY GRID --- */
+        .support-grid { max-width: 1200px; margin: 0 auto 80px; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .support-card { background: white; padding: 40px; border-radius: 12px; border: 1px solid #eef1f4; transition: 0.3s; cursor: pointer; }
+        .support-card:hover { transform: translateY(-10px); border-color: var(--purple); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .support-card h3 { font-family: 'Montserrat'; font-size: 20px; margin: 15px 0; color: var(--purple); }
+        .support-card p { color: var(--gray); font-size: 14px; }
+        .icon-circle { width: 60px; height: 60px; background: var(--light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+
+        /* --- FAQ SECTION --- */
+        .faq-section { background: white; padding: 100px 5%; }
+        .faq-container { max-width: 900px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #eee; padding: 25px 0; }
+        .faq-question { font-weight: 700; font-size: 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::after { content: '+'; color: var(--orange); font-size: 24px; }
+        .faq-answer { margin-top: 15px; color: var(--gray); display: none; padding-right: 40px; }
+
+        /* --- CONTACT OPTIONS --- */
+        .contact-methods { padding: 100px 5%; background: var(--navy); color: white; text-align: center; }
+        .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1100px; margin: 50px auto 0; }
+        .method-box { border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 12px; }
+        .method-box h4 { font-family: 'Montserrat'; color: var(--orange); font-size: 18px; margin-bottom: 10px; }
+        .method-box p { opacity: 0.6; font-size: 14px; }
+        .btn-outline { 
+            display: inline-block; margin-top: 20px; padding: 12px 25px; 
+            border: 2px solid white; color: white; text-decoration: none; 
+            font-weight: 800; font-size: 12px; text-transform: uppercase; border-radius: 4px;
+        }
+
+        /* --- FOOTER --- */
+        footer { background: #01040a; color: white; padding: 60px 5%; text-align: center; font-size: 12px; }
+
+        /* --- MOBILE ADJUSTMENTS --- */
+        @media (max-width: 768px) {
+            .status-bar { flex-direction: column; gap: 20px; text-align: center; padding: 20px; width: 90%; }
+            .support-hero { padding: 80px 5% 100px; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="tracking.html">Track Asset</a>
+    </nav>
+</header>
+
+<section class="support-hero">
+    <h1>Support Terminal</h1>
+    <p>Access our global knowledge base or connect with a dispatch officer.</p>
+    <div class="search-wrapper">
+        <input type="text" placeholder="Search for documentation, tracking help, or customs info...">
+    </div>
+</section>
+
+<div class="status-bar">
+    <div class="status-indicator">
+        <div class="dot"></div>
+        GLOBAL NETWORK STATUS: OPTIMAL
+    </div>
+    <div style="font-size: 12px; font-weight: 600; color: var(--gray);">
+        AVERAGE RESPONSE TIME: <span style="color:var(--purple)">14 MINUTES</span>
+    </div>
+</div>
+
+<div class="support-grid">
+    <div class="support-card">
+        <div class="icon-circle">📦</div>
+        <h3>Tracking Help</h3>
+        <p>Issues with your consignment ID? Learn how to interpret transit status codes and delivery estimates.</p>
+    </div>
+    <div class="support-card">
+        <h3>Customs & Regulatory</h3>
+        <p>Documentation requirements for international freight, duties, and regional clearance protocols.</p>
+    </div>
+    <div class="support-card">
+        <h3>Enterprise Solutions</h3>
+        <p>API integration support for high-volume shippers and corporate supply chain management.</p>
+    </div>
+    <div class="support-card">
+        <h3>Security & Claims</h3>
+        <p>Information on our Security Matrix protocols and steps for filing transit incidence reports.</p>
+    </div>
+    <div class="support-card">
+        <h3>Billing & Invoices</h3>
+        <p>Manage your corporate accounts, retrieve shipping receipts, and update payment configurations.</p>
+    </div>
+    <div class="support-card">
+        <h3>Global Hubs</h3>
+        <p>Find contact details and operating hours for our 480+ international distribution centers.</p>
+    </div>
+</div>
+
+
+
+<section class="faq-section">
+    <div class="faq-container">
+        <h2 style="font-family:Montserrat; text-align:center; margin-bottom:60px;">FREQUENTLY ASKED QUESTIONS</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(0)">How do I track a high-value asset?</div>
+            <div class="faq-answer" id="faq-0">Simply enter your Consignment ID into the main terminal. High-value assets are monitored via our Security Matrix, providing minute-by-minute geospatial telemetry.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(1)">What is the "Security Matrix"?</div>
+            <div class="faq-answer" id="faq-1">The Security Matrix is a multi-layered protocol involving AES-256 data encryption and biometric verification at every physical hand-off point in the supply chain.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(2)">How do I change my delivery address?</div>
+            <div class="faq-answer" id="faq-2">Address changes can be requested up until the cargo reaches the "Local Distribution" stage. Please contact your regional dispatch office immediately.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(3)">Do you offer cold-chain logistics?</div>
+            <div class="faq-answer" id="faq-3">Yes. Our Healthcare Division provides validated temperature-controlled environments for pharmaceutical and biological assets worldwide.</div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-methods">
+    <h2>Direct Command Support</h2>
+    <p>Our officers are available 24/7 for mission-critical assistance.</p>
+    
+    <div class="method-grid">
+        <div class="method-box">
+            <h4>Live Terminal Chat</h4>
+            <p>Immediate text-based support with a dispatch officer.</p>
+            <a href="#" class="btn-outline">Open Chat</a>
+        </div>
+        <div class="method-box">
+            <h4>Priority Email</h4>
+            <p>For documentation and non-critical operational queries.</p>
+            <a href="mailto:support@swiftcourier.global" class="btn-outline">Send Message</a>
+        </div>
+        <div class="method-box">
+            <h4>Regional Hotlines</h4>
+            <p>Direct voice lines to our major global distribution hubs.</p>
+            <a href="#" class="btn-outline">View Directory</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 SWIFTCOURIER GLOBAL OPERATIONS CENTER. ALL SYSTEMS OPERATIONAL.</p>
+</footer>
+
+<script>
+    function toggleFaq(index) {
+        const answers = document.querySelectorAll('.faq-answer');
+        const current = document.getElementById('faq-' + index);
+        const isVisible = current.style.display === 'block';
+        
+        answers.forEach(a => a.style.display = 'none');
+        current.style.display = isVisible ? 'none' : 'block';
+    }
+</script>
+
+</body>
+</html>
