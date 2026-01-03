@@ -3,123 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Tracking | SwiftCourier Global</title>
+    <title>Enterprise Tracking Terminal | SwiftCourier Global</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --purple: #4D148C; --orange: #FF6200; --navy: #050A18; --white: #FFFFFF; --bg: #F0F2F5; --green: #00C853; }
-        * { box-sizing: border-box; transition: 0.3s; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--navy); }
+        :root { --purple: #4D148C; --orange: #FF6200; --navy: #02060f; --white: #FFFFFF; --green: #00E676; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #fdfdfd; color: var(--navy); line-height: 1.5; }
+
+        /* TERMINAL TOP BAR */
+        .top-bar { background: #000; color: #00ff00; padding: 10px 8%; font-family: monospace; font-size: 11px; display: flex; justify-content: space-between; border-bottom: 2px solid var(--purple); }
 
         /* HEADER */
-        header { background: var(--navy); padding: 25px 8%; display: flex; justify-content: space-between; align-items: center; color: white; border-bottom: 4px solid var(--purple); }
-        .logo { font-family: 'Montserrat'; font-size: 24px; font-weight: 900; text-decoration: none; color: white; letter-spacing: -1px; }
+        header { background: var(--navy); padding: 30px 8%; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .logo { font-family: 'Montserrat'; font-size: 26px; font-weight: 900; text-decoration: none; color: white; }
         .logo span { color: var(--orange); }
-        .sys-status { font-size: 11px; letter-spacing: 1px; opacity: 0.7; display: flex; align-items: center; }
-        .blink { height: 8px; width: 8px; background: var(--green); border-radius: 50%; margin-right: 8px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* HERO TRACKING STATUS */
-        .status-hero { background: var(--purple); color: white; padding: 60px 8%; text-align: center; }
-        .status-hero h1 { font-family: 'Montserrat'; font-size: 42px; margin: 0; }
-        .status-hero p { opacity: 0.8; font-size: 14px; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        /* STATUS DISPLAY */
+        .status-hero { background: var(--purple); color: white; padding: 80px 8%; text-align: center; background-image: radial-gradient(circle at center, #6a1b9a, #4D148C); }
+        .status-hero h1 { font-family: 'Montserrat'; font-size: 50px; margin: 0; text-transform: uppercase; line-height: 1; }
+        .track-id-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 8px 25px; border-radius: 50px; margin-top: 20px; font-weight: 600; font-size: 14px; border: 1px solid rgba(255,255,255,0.3); }
 
-        /* MAIN DASHBOARD */
-        .dashboard { max-width: 1300px; margin: -40px auto 100px; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        /* DASHBOARD GRID */
+        .dashboard { max-width: 1400px; margin: -50px auto 100px; padding: 0 20px; display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 40px; }
 
-        /* PROGRESS RADAR */
-        .card { background: white; border-radius: 4px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); position: relative; }
-        .progress-container { display: flex; justify-content: space-between; margin: 50px 0; position: relative; }
-        .progress-line { position: absolute; top: 20px; left: 0; right: 0; height: 4px; background: #eee; z-index: 1; }
-        .progress-fill { position: absolute; top: 20px; left: 0; height: 4px; background: var(--orange); z-index: 2; width: 0%; }
-        .node { position: relative; z-index: 3; text-align: center; width: 100px; }
-        .dot { width: 40px; height: 40px; background: white; border: 4px solid #eee; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-        .node.active .dot { border-color: var(--orange); color: var(--orange); }
-        .node.completed .dot { background: var(--orange); border-color: var(--orange); color: white; }
-        .node span { font-size: 10px; font-weight: 800; color: #999; text-transform: uppercase; }
-        .node.active span { color: var(--navy); }
+        /* MAIN CARD */
+        .main-card { background: white; border-radius: 8px; padding: 50px; box-shadow: 0 40px 100px rgba(0,0,0,0.08); }
+        .progress-bar-wrap { position: relative; display: flex; justify-content: space-between; margin: 60px 0; }
+        .bg-line { position: absolute; top: 25px; height: 4px; background: #eee; width: 100%; z-index: 1; }
+        .fill-line { position: absolute; top: 25px; height: 4px; background: var(--orange); width: 0%; z-index: 2; transition: width 2s ease-in-out; }
+        .step-node { position: relative; z-index: 3; text-align: center; width: 120px; }
+        .circle { width: 54px; height: 54px; background: white; border: 5px solid #eee; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; }
+        .step-node.active .circle { border-color: var(--orange); color: var(--orange); box-shadow: 0 0 20px rgba(255,98,0,0.3); }
+        .step-node.done .circle { background: var(--orange); border-color: var(--orange); color: white; }
+        .step-label { font-size: 11px; font-weight: 800; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* LOGS TABLE */
-        .logs-table { width: 100%; border-collapse: collapse; margin-top: 30px; }
-        .logs-table th { text-align: left; font-size: 12px; color: #999; padding: 10px; border-bottom: 2px solid #eee; }
-        .logs-table td { padding: 15px 10px; font-size: 14px; border-bottom: 1px solid #f9f9f9; }
-        .log-status { font-weight: bold; color: var(--purple); }
+        /* DATA TABLE */
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+        .data-table th { text-align: left; padding: 15px; background: #f8f9fa; font-size: 12px; color: #777; border-bottom: 2px solid #eee; }
+        .data-table td { padding: 20px 15px; border-bottom: 1px solid #f1f1f1; font-size: 14px; }
 
-        /* SIDEBAR */
-        .spec-card { background: var(--navy); color: white; padding: 30px; border-radius: 4px; }
-        .spec-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .spec-item label { opacity: 0.5; font-size: 12px; text-transform: uppercase; }
-        .spec-item span { font-weight: bold; font-size: 14px; }
+        /* SIDEBAR - THE FIX IS HERE */
+        .sidebar-card { background: var(--navy); color: white; padding: 40px; border-radius: 8px; position: sticky; top: 120px; overflow: hidden; }
+        .sidebar-card h3 { color: var(--orange); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 25px; font-family: 'Montserrat'; }
         
-        .map-box { width: 100%; height: 250px; background: #111; margin-top: 20px; border-radius: 4px; overflow: hidden; }
-        .download-btn { display: block; width: 100%; padding: 15px; background: var(--orange); color: white; text-align: center; text-decoration: none; font-weight: 900; font-size: 13px; margin-top: 20px; border-radius: 4px; }
+        .spec-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; }
+        .spec-row label { opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
+        .spec-row span { font-weight: 700; font-size: 15px; text-align: right; }
+        .weight-val { color: var(--orange); font-size: 18px !important; }
 
-        /* OVERLAYS */
-        #loader-overlay { position: fixed; inset: 0; background: var(--navy); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; }
-        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--orange); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        /* MAP BOX FIX */
+        .map-container { margin-top: 35px; height: 300px; border-radius: 8px; overflow: hidden; background: #000; position: relative; border: 1px solid rgba(255,255,255,0.1); }
+        #map-embed { width: 100%; height: 100%; border: 0; filter: contrast(1.1) brightness(0.9); }
 
-        @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } .progress-container { flex-direction: column; gap: 30px; } .progress-line { display: none; } }
+        /* GATEKEEPER LOADER */
+        #gatekeeper { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #00ff00; font-family: monospace; }
+        .scanline { width: 250px; height: 2px; background: #00ff00; box-shadow: 0 0 15px #00ff00; animation: scan 2s linear infinite; }
+        @keyframes scan { 0% { transform: translateY(-40px); } 100% { transform: translateY(40px); } }
+
+        @media (max-width: 1024px) { 
+            .dashboard { grid-template-columns: 1fr; } 
+            .progress-bar-wrap { flex-direction: column; align-items: flex-start; gap: 40px; padding-left: 30px; } 
+            .bg-line, .fill-line { display: none; }
+            .sidebar-card { position: static; }
+        }
     </style>
 </head>
 <body>
 
-<div id="loader-overlay">
-    <div class="spinner"></div>
-    <div style="font-family: 'Montserrat'; letter-spacing: 2px; font-size: 12px;">ENCRYPTED CONNECTION ESTABLISHED</div>
+<div id="gatekeeper">
+    <div class="scanline"></div>
+    <p style="margin-top: 25px; letter-spacing: 2px;">AUTHORIZING ACCESS...</p>
+</div>
+
+<div class="top-bar">
+    <div>SYSTEM: SWIFT-CORE v4.2 // SECURITY: ACTIVE</div>
+    <div>HUB TIME: <span id="clock"></span></div>
 </div>
 
 <header>
     <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
-    <div class="sys-status"><div class="blink"></div> SECURE DATA STREAM ACTIVE</div>
+    <div style="font-size: 11px; font-weight: bold; border: 1px solid var(--green); padding: 6px 16px; color: var(--green); border-radius: 4px; text-transform: uppercase;">Secure Terminal</div>
 </header>
 
-<div class="status-hero">
-    <p id="hero-id-label">CONSIGNMENT IDENTIFIED</p>
-    <h1 id="hero-status">---</h1>
-</div>
+<section class="status-hero">
+    <div class="track-id-badge" id="badge-id">LOADING...</div>
+    <h1 id="hero-status-text">RETRIEVING DATA</h1>
+</section>
 
 <div class="dashboard">
-    <div class="main-content">
-        <div class="card">
-            <h3>Shipment Lifecycle</h3>
-            <div class="progress-container">
-                <div class="progress-line"></div>
-                <div class="progress-fill" id="p-bar"></div>
-                <div class="node" id="n1"><div class="dot">1</div><span>Order Received</span></div>
-                <div class="node" id="n2"><div class="dot">2</div><span>Processed</span></div>
-                <div class="node" id="n3"><div class="dot">3</div><span>In Transit</span></div>
-                <div class="node" id="n4"><div class="dot">4</div><span>Out for Delivery</span></div>
-                <div class="node" id="n5"><div class="dot">5</div><span>Delivered</span></div>
-            </div>
-
-            <h3 style="margin-top: 60px;">Operational Audit Logs</h3>
-            <table class="logs-table">
-                <thead><tr><th>TIMESTAMP</th><th>LOCATION</th><th>ACTIVITY</th><th>STATUS</th></tr></thead>
-                <tbody id="log-entries">
-                    </tbody>
-            </table>
+    <div class="main-card">
+        <h3 style="margin-top:0; font-family:'Montserrat';">LIVE LIFECYCLE MONITOR</h3>
+        <div class="progress-bar-wrap">
+            <div class="bg-line"></div>
+            <div class="fill-line" id="progress-line-fill"></div>
+            <div class="step-node" id="s1"><div class="circle">1</div><div class="step-label">Ordered</div></div>
+            <div class="step-node" id="s2"><div class="circle">2</div><div class="step-label">Hub Export</div></div>
+            <div class="step-node" id="s3"><div class="circle">3</div><div class="step-label">In Transit</div></div>
+            <div class="step-node" id="s4"><div class="circle">4</div><div class="step-label">Destination</div></div>
+            <div class="step-node" id="s5"><div class="circle">5</div><div class="step-label">Delivered</div></div>
         </div>
+
+        <h3 style="margin-top: 60px; font-family:'Montserrat';">SECURITY AUDIT LOGS</h3>
+        <table class="data-table">
+            <thead>
+                <tr><th>LOG TIMESTAMP</th><th>CURRENT FACILITY</th><th>PROTOCOL EVENT</th><th>STATUS</th></tr>
+            </thead>
+            <tbody id="audit-logs">
+                </tbody>
+        </table>
     </div>
 
     <aside>
-        <div class="spec-card">
-            <h3>Consignment Specs</h3>
-            <div class="spec-item"><label>Tracking ID</label><span id="spec-id">---</span></div>
-            <div class="spec-item"><label>Service Class</label><span>Premium Express</span></div>
-            <div class="spec-item"><label>Weight</label><span id="spec-weight">---</span></div>
-            <div class="spec-item"><label>Origin</label><span id="spec-origin">---</span></div>
-            <div class="spec-item"><label>Destination</label><span id="spec-dest">---</span></div>
+        <div class="sidebar-card">
+            <h3>Shipment Specs</h3>
+            <div class="spec-row"><label>Tracking ID</label><span id="side-id">---</span></div>
+            <div class="spec-row"><label>Service Class</label><span>Enterprise Priority</span></div>
+            <div class="spec-row"><label>Gross Weight</label><span id="side-weight" class="weight-val">---</span></div>
+            <div class="spec-row"><label>Origin</label><span id="side-origin">---</span></div>
+            <div class="spec-row"><label>Destination</label><span id="side-dest">---</span></div>
+            <div class="spec-row"><label>Insurance</label><span style="color:var(--green)">COVERED</span></div>
             
-            <div class="map-box">
-                <iframe id="map-frame" width="100%" height="100%" frameborder="0" style="border:0;"></iframe>
+            <div class="map-container">
+                <iframe id="map-embed" src="" allowfullscreen="" loading="lazy"></iframe>
             </div>
 
-            <a href="#" class="download-btn" onclick="alert('Generating Secure PDF Manifest...')">DOWNLOAD SHIPMENT MANIFEST</a>
-        </div>
-
-        <div style="margin-top: 30px; background: white; padding: 25px; border-left: 5px solid var(--purple);">
-            <h4 style="margin:0 0 10px 0;">Premium Support</h4>
-            <p style="font-size: 13px; color: #666; line-height: 1.6;">Your shipment is covered under SwiftCourier Global protection. For priority assistance, call +234 816 057 1418.</p>
+            <button onclick="window.print()" style="width:100%; margin-top:25px; padding:18px; background:var(--orange); color:white; border:none; font-weight:900; cursor:pointer; border-radius: 4px; text-transform: uppercase;">Print Official Manifest</button>
         </div>
     </aside>
 </div>
@@ -127,87 +135,85 @@
 <script>
     const apiURL = 'https://script.google.com/macros/s/AKfycbxrZ2ZuqFVIAjEg8x16GXy1V0KHcMiqyJPH3PXeWnWYZizGCxy2kUKfjlcFYhos5FI/exec'; 
 
-    async function fetchTrackingData() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const trackId = urlParams.get('id');
-        
-        if (!trackId) {
-            window.location.href = 'index.html';
-            return;
-        }
+    async function initializePortal() {
+        const id = new URLSearchParams(window.location.search).get('id');
+        if(!id) return window.location.href = 'index.html';
 
         try {
-            const response = await fetch(`${apiURL}?id=${encodeURIComponent(trackId)}`);
-            const data = await response.json();
-
-            if (data && data.id) {
-                renderMassiveData(data);
+            const resp = await fetch(`${apiURL}?id=${encodeURIComponent(id)}`);
+            const data = await resp.json();
+            if(data && data.id) {
+                populatePortal(data);
             } else {
-                document.getElementById('loader-overlay').innerHTML = `
-                    <h2 style="color:var(--orange)">CONSIGNMENT NOT FOUND</h2>
-                    <button onclick="window.location.href='index.html'" style="padding:15px 30px; background:white; color:var(--navy); border:none; font-weight:bold; cursor:pointer; margin-top:20px;">BACK TO TERMINAL</button>
-                `;
+                handleError(id);
             }
-        } catch (error) {
-            document.getElementById('loader-overlay').innerText = "DATASTREAM INTERRUPTED. REFRESHING...";
-            setTimeout(() => location.reload(), 3000);
+        } catch(e) {
+            handleError("Timeout");
         }
     }
 
-    function renderMassiveData(data) {
-        document.getElementById('loader-overlay').style.display = 'none';
+    function populatePortal(data) {
+        document.getElementById('gatekeeper').style.display = 'none';
         
-        // Hero Section
-        document.getElementById('hero-id-label').innerText = "CONSIGNMENT #" + data.id;
-        document.getElementById('hero-status').innerText = data.status;
+        // Populate Strings
+        document.getElementById('badge-id').innerText = "TRACKING #" + data.id;
+        document.getElementById('hero-status-text').innerText = data.status;
+        document.getElementById('side-id').innerText = data.id;
+        document.getElementById('side-weight').innerText = (data.weight || "0.0") + " KG";
+        document.getElementById('side-origin').innerText = data.origin || "Global Hub";
+        document.getElementById('side-dest').innerText = data.destination || "Secured Address";
 
-        // Specs
-        document.getElementById('spec-id').innerText = data.id;
-        document.getElementById('spec-weight').innerText = (data.weight || "N/A") + " kg";
-        document.getElementById('spec-origin').innerText = data.origin || "International Hub";
-        document.getElementById('spec-dest').innerText = data.destination || "Secured Address";
-        
-        // Map
-        if(data.map) document.getElementById('map-frame').src = data.map;
-
-        // Progress Logic
-        const status = data.status.toLowerCase();
-        let step = 1;
-        let percent = 0;
-
-        if (status.includes("origin") || status.includes("received")) { step = 1; percent = 5; }
-        else if (status.includes("processed") || status.includes("departed")) { step = 2; percent = 25; }
-        else if (status.includes("transit") || status.includes("shipped")) { step = 3; percent = 50; }
-        else if (status.includes("out") || status.includes("delivery")) { step = 4; percent = 75; }
-        else if (status.includes("delivered") || status.includes("arrived")) { step = 5; percent = 100; }
-
-        document.getElementById('p-bar').style.width = percent + "%";
-        for (let i = 1; i <= 5; i++) {
-            const node = document.getElementById('n' + i);
-            if (i < step) node.classList.add('completed');
-            if (i === step) node.classList.add('active');
+        // Map Fix
+        const mapFrame = document.getElementById('map-embed');
+        if(data.map && data.map.toString().includes('http')) {
+            mapFrame.src = data.map;
+        } else {
+            document.querySelector('.map-container').style.display = 'none';
         }
 
-        // Generate Massive Audit Logs (Mocked based on status)
-        const logTable = document.getElementById('log-entries');
-        const now = new Date();
+        // Status Logic
+        const s = data.status.toLowerCase();
+        let step = 1;
+        let fill = 0;
+
+        if (s.includes("origin") || s.includes("ordered")) { step = 1; fill = 0; }
+        else if (s.includes("export") || s.includes("hub") || s.includes("departed")) { step = 2; fill = 25; }
+        else if (s.includes("transit") || s.includes("shipped")) { step = 3; fill = 50; }
+        else if (s.includes("destination") || s.includes("delivery")) { step = 4; fill = 75; }
+        else if (s.includes("delivered") || s.includes("arrived")) { step = 5; fill = 100; }
+
+        document.getElementById('progress-line-fill').style.width = fill + "%";
+        for(let i=1; i<=5; i++) {
+            const node = document.getElementById('s'+i);
+            if(i < step) node.classList.add('done');
+            if(i === step) node.classList.add('active');
+        }
+
+        // Audit Logs
         const logs = [
-            { t: "12:40 PM", l: data.destination || "Dest.", a: "Final Delivery Stage", s: "IN PROGRESS" },
-            { t: "09:15 AM", l: "Global Distribution", a: "Sorting & Quality Control", s: "COMPLETED" },
-            { t: "Yesterday", l: data.origin || "Origin", a: "Air Freight Departure", s: "COMPLETED" }
+            { d: "SYSTEM LIVE", l: data.origin || "HUB", e: "Status set to: " + data.status, s: "VERIFIED" },
+            { d: "HUB CHECK", l: "Global Dispatch", e: "Customs declaration and manifest validated.", s: "COMPLETE" },
+            { d: "INIT", l: "System Central", e: "Secure transit request logged.", s: "SECURE" }
         ];
 
-        logTable.innerHTML = logs.map(l => `
-            <tr>
-                <td>${l.t}</td>
-                <td>${l.l}</td>
-                <td>${l.a}</td>
-                <td class="log-status">${l.s}</td>
-            </tr>
+        document.getElementById('audit-logs').innerHTML = logs.map(l => `
+            <tr><td>${l.d}</td><td>${l.l}</td><td>${l.e}</td><td style="color:var(--purple); font-weight:900;">${l.s}</td></tr>
         `).join('');
     }
 
-    fetchTrackingData();
+    function handleError(msg) {
+        document.getElementById('gatekeeper').innerHTML = `
+            <h2 style="color:var(--orange)">CONSIGNMENT ERROR</h2>
+            <p style="color:white; opacity:0.6;">ID "${msg}" not found in our secure database.</p>
+            <button onclick="window.location.href='index.html'" style="margin-top:20px; padding:12px 25px; background:var(--purple); color:white; border:none; cursor:pointer; font-weight:bold;">RETURN TO TERMINAL</button>
+        `;
+    }
+
+    function updateHubClock() {
+        if(document.getElementById('clock')) document.getElementById('clock').innerText = new Date().toUTCString();
+    }
+    setInterval(updateHubClock, 1000);
+    initializePortal();
 </script>
 
 </body>
