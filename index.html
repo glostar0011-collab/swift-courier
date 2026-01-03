@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftCourier | Global Logistics Leader</title>
+    <style>
+        :root { --purple: #4D148C; --orange: #FF6200; --navy: #0a192f; --white: #ffffff; --gray: #f4f4f4; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; background: var(--gray); }
+        nav { background: var(--white); padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 28px; font-weight: 900; color: var(--purple); text-decoration: none; }
+        .logo span { color: var(--orange); }
+        .nav-links a { text-decoration: none; color: var(--navy); font-weight: 700; margin-left: 20px; font-size: 14px; text-transform: uppercase; }
+        .hero { background: var(--purple); background-image: linear-gradient(rgba(77,20,140,0.8), rgba(77,20,140,0.8)), url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1500'); background-size: cover; padding: 120px 20px; text-align: center; color: var(--white); }
+        .hero h1 { font-size: 50px; margin: 0; font-weight: 800; }
+        .track-wrapper { background: var(--white); padding: 8px; border-radius: 50px; display: flex; max-width: 650px; margin: 40px auto; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .track-wrapper input { flex: 1; border: none; padding: 15px 25px; font-size: 16px; outline: none; border-radius: 50px; }
+        .track-wrapper button { background: var(--orange); color: var(--white); border: none; padding: 15px 40px; border-radius: 50px; font-weight: 900; cursor: pointer; }
+        .section { padding: 80px 10%; background: var(--white); }
+        .stats { background: var(--navy); color: white; padding: 50px 0; display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; }
+        .stat-box h2 { color: var(--orange); font-size: 40px; margin: 0; }
+        footer { background: var(--navy); color: white; padding: 60px 10% 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Swift<span>Courier</span></a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="tracking.html">Track</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Swift. Secure. Global.</h1>
+        <p>The world's most trusted logistics network at your fingertips.</p>
+        <div class="track-wrapper">
+            <input type="text" id="shipId" placeholder="Enter Tracking ID (e.g. SC-100)">
+            <button onclick="handleTrack()">Track Now</button>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-box"><h2>220+</h2><p>Countries</p></div>
+        <div class="stat-box"><h2>1.5M</h2><p>Parcels/Year</p></div>
+        <div class="stat-box"><h2>12k</h2><p>Staff</p></div>
+        <div class="stat-box"><h2>24/7</h2><p>Support</p></div>
+    </div>
+
+    <div class="section" id="about">
+        <h2 style="text-align:center; color:var(--purple);">About SwiftCourier</h2>
+        <p style="max-width:800px; margin:auto; text-align:center; color:#555;">Since 2005, we have redefined global logistics. Our proprietary tracking technology ensures you are always connected to your cargo, no matter where it is in the world.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SwiftCourier International. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function handleTrack() {
+            const id = document.getElementById('shipId').value.trim();
+            if(!id) return alert("Please enter an ID.");
+            // Because we are on a real host, we just link to the next file
+            window.location.href = "tracking.html?id=" + encodeURIComponent(id);
+        }
+    </script>
+</body>
+</html>
