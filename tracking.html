@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Result | SwiftCourier</title>
+    <style>
+        :root { --purple: #4D148C; --orange: #FF6200; --navy: #0a192f; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; margin: 0; }
+        .header { background: var(--purple); color: white; padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .status-hero { grid-column: 1 / -1; background: var(--navy); color: white; padding: 40px; border-radius: 8px; display: flex; justify-content: space-between; }
+        .label { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+        .value { font-size: 18px; color: var(--purple); font-weight: 600; margin-bottom: 20px; }
+        .timeline { border-left: 3px solid #ddd; padding-left: 20px; margin-left: 10px; }
+        .step { margin-bottom: 20px; position: relative; font-size: 14px; }
+        .step::before { content: ''; position: absolute; left: -27px; top: 0; width: 10px; height: 10px; background: var(--orange); border-radius: 50%; }
+        .map { width: 100%; height: 350px; border-radius: 8px; border: none; }
+        #loading { text-align: center; padding: 100px; font-size: 20px; color: var(--purple); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" style="color:white; text-decoration:none; font-weight:900; font-size:24px;">SwiftCourier</a>
+        <span>Secure Tracking System</span>
+    </div>
+
+    <div id="loading">Connecting to Secure Server...</div>
+
+    <div class="container" id="dash" style="display:none;">
+        <div class="status-hero">
+            <div><div class="label" style="color:white; opacity:0.7;">Current Status</div><h1 id="res-status" style="margin:0;">---</h1></div>
+            <div style="text-align:right;"><div class="label" style="color:white; opacity:0.7;">Estimated Delivery</div><h2 id="res-eta" style="margin:0;">---</h2></div>
+        </div>
+        
+        <div>
+            <div class="card">
+                <div class="label">Consignee</div><div id="res-cust" class="value"></div>
+                <div class="label">Parcel Info</div><div id="res-parcel" class="value" style="color:#555; font-size:14px;"></div>
+                <div class="label">Travel History</div>
+                <div id="res-hist" class="timeline"></div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card">
+                <div class="label">Current Location</div><div id="res-loc" class="value"></div>
+                <iframe id="res-map" class="map"></iframe>
+                <div class="label" style="margin-top:20px;">Operational Notes</div>
+                <div id="res-notes" style="font-style:italic; color:#666;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            const api = 'https://script.google.com/macros/s/AKfycbz9AdjPjDk1ZQxBWqk82eg9_vOW5RjETylOIZ3kkoFo4W3XSEV84zqS-0TUrMxA5qyl/exec';
+
+            if(!id) {
+                document.getElementById('loading').innerText = "No Tracking ID provided.";
+                return;
+            }
+
+            fetch(api + '?id=' + id)
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('dash').style.display = 'grid';
+                    document.getElementById('res-status').innerText = data.status;
+                    document.getElementById('res-eta').innerText = data.eta;
+                    document.getElementById('res-cust').innerText = data.customer;
+                    document.getElementById('res-parcel').innerText = data.parcelInfo;
+                    document.getElementById('res-loc').innerText = data.location;
+                    document.getElementById('res-notes').innerText = data.notes;
+                    document.getElementById('res-map').src = data.mapUrl;
+                    
+                    const steps = data.history.split(',');
+                    document.getElementById('res-hist').innerHTML = steps.map(s => `<div class="step">${s.trim()}</div>`).join('');
+                })
+                .catch(e => {
+                    document.getElementById('loading').innerText = "Tracking ID not found in records.";
+                });
+        }
+    </script>
+</body>
+</html>
