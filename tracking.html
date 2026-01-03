@@ -3,87 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracking Result | SwiftCourier</title>
+    <title>Tracking Portal | SwiftCourier Global</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --purple: #4D148C; --orange: #FF6200; --navy: #0a192f; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; margin: 0; }
-        .header { background: var(--purple); color: white; padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; }
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .status-hero { grid-column: 1 / -1; background: var(--navy); color: white; padding: 40px; border-radius: 8px; display: flex; justify-content: space-between; }
-        .label { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; margin-bottom: 5px; }
-        .value { font-size: 18px; color: var(--purple); font-weight: 600; margin-bottom: 20px; }
-        .timeline { border-left: 3px solid #ddd; padding-left: 20px; margin-left: 10px; }
-        .step { margin-bottom: 20px; position: relative; font-size: 14px; }
-        .step::before { content: ''; position: absolute; left: -27px; top: 0; width: 10px; height: 10px; background: var(--orange); border-radius: 50%; }
-        .map { width: 100%; height: 350px; border-radius: 8px; border: none; }
-        #loading { text-align: center; padding: 100px; font-size: 20px; color: var(--purple); }
+        :root { --purple: #4D148C; --orange: #FF6200; --navy: #050A18; --white: #FFFFFF; --bg: #F7F9FC; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--navy); }
+
+        /* HEADER */
+        header { background: var(--navy); padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .logo { font-size: 22px; font-weight: 800; text-decoration: none; color: white; }
+        .logo span { color: var(--orange); }
+        .secure-badge { background: rgba(0,255,0,0.1); color: #00ff00; padding: 5px 15px; border-radius: 20px; font-size: 11px; font-weight: bold; border: 1px solid #00ff00; }
+
+        /* MAIN LAYOUT */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
+
+        /* LEFT COLUMN: STATUS CARD */
+        .status-card { background: white; border-radius: 12px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .shipment-id { font-size: 14px; color: #666; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; }
+        .current-status { font-size: 32px; font-weight: 800; color: var(--purple); margin-bottom: 30px; }
+
+        /* TIMELINE DESIGN */
+        .timeline { position: relative; padding-left: 50px; margin-top: 40px; }
+        .timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: #eee; }
+        .step { position: relative; margin-bottom: 40px; opacity: 0.3; }
+        .step.active { opacity: 1; }
+        .step::after { content: ''; position: absolute; left: -38px; top: 5px; width: 18px; height: 18px; border-radius: 50%; background: #eee; border: 4px solid white; box-shadow: 0 0 0 2px #eee; }
+        .step.active::after { background: var(--orange); box-shadow: 0 0 0 2px var(--orange); }
+        .step-title { font-weight: 800; font-size: 18px; margin-bottom: 5px; }
+        .step-desc { font-size: 14px; color: #666; }
+        .step-time { font-size: 12px; color: var(--orange); font-weight: bold; }
+
+        /* RIGHT COLUMN: MAP & DETAILS */
+        .details-card { background: var(--navy); color: white; border-radius: 12px; padding: 30px; height: fit-content; }
+        .map-frame { width: 100%; height: 300px; border-radius: 8px; background: #1a2236; margin-bottom: 25px; border: none; }
+        .info-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 14px; }
+        .info-label { opacity: 0.6; }
+
+        /* PROOF OF DELIVERY */
+        .pod-box { margin-top: 30px; padding: 20px; border: 2px dashed rgba(255,255,255,0.2); border-radius: 8px; text-align: center; }
+        .signature-img { max-width: 150px; filter: invert(1); opacity: 0.8; }
+
+        /* LOADING SPINNER */
+        #loader { text-align: center; padding: 100px; font-weight: bold; color: var(--purple); }
+
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <div class="header">
-        <a href="index.html" style="color:white; text-decoration:none; font-weight:900; font-size:24px;">SwiftCourier</a>
-        <span>Secure Tracking System</span>
-    </div>
 
-    <div id="loading">Connecting to Secure Server...</div>
+    <header>
+        <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
+        <div class="secure-badge">SSL SECURE: 256-BIT ENCRYPTION</div>
+    </header>
 
-    <div class="container" id="dash" style="display:none;">
-        <div class="status-hero">
-            <div><div class="label" style="color:white; opacity:0.7;">Current Status</div><h1 id="res-status" style="margin:0;">---</h1></div>
-            <div style="text-align:right;"><div class="label" style="color:white; opacity:0.7;">Estimated Delivery</div><h2 id="res-eta" style="margin:0;">---</h2></div>
-        </div>
-        
-        <div>
-            <div class="card">
-                <div class="label">Consignee</div><div id="res-cust" class="value"></div>
-                <div class="label">Parcel Info</div><div id="res-parcel" class="value" style="color:#555; font-size:14px;"></div>
-                <div class="label">Travel History</div>
-                <div id="res-hist" class="timeline"></div>
+    <div id="loader">AUTHENTICATING CONSIGNMENT DATA...</div>
+
+    <div class="container" id="tracking-content" style="display: none;">
+        <div class="status-card">
+            <div class="shipment-id" id="display-id">CONSIGNMENT: #--------</div>
+            <div class="current-status" id="display-status">Verifying Status...</div>
+            
+            <div class="timeline">
+                <div class="step" id="step1">
+                    <div class="step-title">SHIPMENT ORIGINATED</div>
+                    <div class="step-desc">Package received at Regional Hub and processed for export.</div>
+                    <div class="step-time" id="time1">--:--</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-title">DEPARTED FACILITY</div>
+                    <div class="step-desc">In transit to International Distribution Center.</div>
+                    <div class="step-time" id="time2">--:--</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-title">INTERNATIONAL TRANSIT</div>
+                    <div class="step-desc">Consignment is currently on-board long-haul freight.</div>
+                    <div class="step-time" id="time3">--:--</div>
+                </div>
+                <div class="step" id="step4">
+                    <div class="step-title">OUT FOR DELIVERY</div>
+                    <div class="step-desc">Couriers dispatched for final-mile destination.</div>
+                    <div class="step-time" id="time4">--:--</div>
+                </div>
+                <div class="step" id="step5">
+                    <div class="step-title">DELIVERED</div>
+                    <div class="step-desc">Successfully received and signed for at destination.</div>
+                    <div class="step-time" id="time5">--:--</div>
+                </div>
             </div>
         </div>
 
-        <div>
-            <div class="card">
-                <div class="label">Current Location</div><div id="res-loc" class="value"></div>
-                <iframe id="res-map" class="map"></iframe>
-                <div class="label" style="margin-top:20px;">Operational Notes</div>
-                <div id="res-notes" style="font-style:italic; color:#666;"></div>
+        <aside>
+            <div class="details-card">
+                <h3>Live Location</h3>
+                <iframe id="display-map" class="map-frame" src="" allowfullscreen="" loading="lazy"></iframe>
+                
+                <div class="info-row"><span class="info-label">Service Level</span><span id="display-service">PREMIUM FREIGHT</span></div>
+                <div class="info-row"><span class="info-label">Weight</span><span id="display-weight">-- kg</span></div>
+                <div class="info-row"><span class="info-label">Origin</span><span id="display-origin">--</span></div>
+                <div class="info-row"><span class="info-label">Destination</span><span id="display-destination">--</span></div>
+
+                <div id="pod-section" style="display: none;">
+                    <div class="pod-box">
+                        <div style="font-size: 11px; margin-bottom: 10px; opacity: 0.6;">DIGITAL PROOF OF DELIVERY</div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Signature_of_Zuzana_Čaputová.svg" class="signature-img">
+                        <div style="font-size: 12px; margin-top: 10px; font-weight: bold;">Verified by SwiftCourier Scan</div>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <div style="margin-top: 20px; padding: 20px; background: #fff; border-radius: 12px; font-size: 13px; line-height: 1.6; border: 1px solid #ddd;">
+                <strong>Need Help?</strong> Contact our 24/7 Premium Dispatch line at +234 816 057 1418 for real-time radio updates on this consignment.
+            </div>
+        </aside>
     </div>
 
     <script>
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
-            const api = 'https://script.google.com/macros/s/AKfycbz9AdjPjDk1ZQxBWqk82eg9_vOW5RjETylOIZ3kkoFo4W3XSEV84zqS-0TUrMxA5qyl/exec';
+        const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE'; // Make sure this is your sheet ID
+        const urlParams = new URLSearchParams(window.location.search);
+        const trackId = urlParams.get('id');
 
-            if(!id) {
-                document.getElementById('loading').innerText = "No Tracking ID provided.";
+        async function fetchTrackingData() {
+            if (!trackId) {
+                document.getElementById('loader').innerText = "ERROR: NO TRACKING ID PROVIDED";
                 return;
             }
 
-            fetch(api + '?id=' + id)
-                .then(r => r.json())
-                .then(data => {
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('dash').style.display = 'grid';
-                    document.getElementById('res-status').innerText = data.status;
-                    document.getElementById('res-eta').innerText = data.eta;
-                    document.getElementById('res-cust').innerText = data.customer;
-                    document.getElementById('res-parcel').innerText = data.parcelInfo;
-                    document.getElementById('res-loc').innerText = data.location;
-                    document.getElementById('res-notes').innerText = data.notes;
-                    document.getElementById('res-map').src = data.mapUrl;
-                    
-                    const steps = data.history.split(',');
-                    document.getElementById('res-hist').innerHTML = steps.map(s => `<div class="step">${s.trim()}</div>`).join('');
-                })
-                .catch(e => {
-                    document.getElementById('loading').innerText = "Tracking ID not found in records.";
-                });
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`);
+                const text = await response.text();
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+
+                const shipment = rows.find(row => row.c[0] && row.c[0].v.toString().trim() === trackId.trim());
+
+                if (shipment) {
+                    displayData(shipment.c);
+                } else {
+                    document.getElementById('loader').innerText = "CONSIGNMENT NOT FOUND. CHECK THE ID.";
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                document.getElementById('loader').innerText = "SYSTEM TIMEOUT. PLEASE REFRESH.";
+            }
         }
+
+        function displayData(data) {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('tracking-content').style.display = 'grid';
+
+            // Mapping Data from Google Sheet Columns (A=0, B=1, etc.)
+            const status = data[1] ? data[1].v : "Processing";
+            document.getElementById('display-id').innerText = "CONSIGNMENT: #" + data[0].v;
+            document.getElementById('display-status').innerText = status;
+            document.getElementById('display-origin').innerText = data[2] ? data[2].v : "Global Hub";
+            document.getElementById('display-destination').innerText = data[3] ? data[3].v : "Final Destination";
+            document.getElementById('display-weight').innerText = data[4] ? data[4].v : "0.0";
+            document.getElementById('display-map').src = data[5] ? data[5].v : "";
+
+            // Timeline Logic
+            const steps = ["Origin", "Departed", "In Transit", "Out for Delivery", "Delivered"];
+            let currentStepIndex = 0;
+
+            if (status.includes("Origin")) currentStepIndex = 1;
+            if (status.includes("Departed") || status.includes("Transit")) currentStepIndex = 3;
+            if (status.includes("Out")) currentStepIndex = 4;
+            if (status.includes("Delivered")) {
+                currentStepIndex = 5;
+                document.getElementById('pod-section').style.display = 'block';
+            }
+
+            for (let i = 1; i <= currentStepIndex; i++) {
+                document.getElementById('step' + i).classList.add('active');
+            }
+        }
+
+        fetchTrackingData();
     </script>
 </body>
 </html>
