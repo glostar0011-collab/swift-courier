@@ -3,221 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Tracking Terminal | SwiftCourier Global</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Track Your Shipment | SwiftCourier Global</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --purple: #4D148C; --orange: #FF6200; --navy: #02060f; --white: #FFFFFF; --green: #00E676; }
-        * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: #fdfdfd; color: var(--navy); line-height: 1.5; }
-
-        /* TERMINAL TOP BAR */
-        .top-bar { background: #000; color: #00ff00; padding: 10px 8%; font-family: monospace; font-size: 11px; display: flex; justify-content: space-between; border-bottom: 2px solid var(--purple); }
+        :root { --purple: #4D148C; --orange: #FF6200; --navy: #02060f; --green: #2ecc71; --light: #f4f7f6; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--light); color: var(--navy); }
 
         /* HEADER */
-        header { background: var(--navy); padding: 30px 8%; display: flex; justify-content: space-between; align-items: center; color: white; }
-        .logo { font-family: 'Montserrat'; font-size: 26px; font-weight: 900; text-decoration: none; color: white; }
+        header { background: var(--navy); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .logo { font-family: 'Montserrat'; font-size: 20px; font-weight: 900; text-decoration: none; color: white; }
         .logo span { color: var(--orange); }
 
-        /* STATUS DISPLAY */
-        .status-hero { background: var(--purple); color: white; padding: 80px 8%; text-align: center; background-image: radial-gradient(circle at center, #6a1b9a, #4D148C); }
-        .status-hero h1 { font-family: 'Montserrat'; font-size: 50px; margin: 0; text-transform: uppercase; line-height: 1; }
-        .track-id-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 8px 25px; border-radius: 50px; margin-top: 20px; font-weight: 600; font-size: 14px; border: 1px solid rgba(255,255,255,0.3); }
+        /* MAIN LAYOUT */
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 15px; }
 
-        /* DASHBOARD GRID */
-        .dashboard { max-width: 1400px; margin: -50px auto 100px; padding: 0 20px; display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 40px; }
+        /* TOP STATUS CARD */
+        .status-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; }
+        .status-badge { display: inline-block; padding: 8px 20px; border-radius: 50px; font-weight: 800; text-transform: uppercase; font-size: 12px; margin-bottom: 15px; }
+        .status-active { background: rgba(46, 204, 113, 0.1); color: var(--green); border: 1px solid var(--green); }
+        .status-hero-text { font-family: 'Montserrat'; font-size: 32px; margin: 10px 0; color: var(--purple); }
+        
+        /* THE PROGRESS TRACKER (Mobile Friendly) */
+        .timeline-container { display: flex; justify-content: space-between; margin: 40px 0; position: relative; padding: 0 10px; }
+        .timeline-line { position: absolute; top: 15px; left: 0; right: 0; height: 4px; background: #eee; z-index: 1; }
+        .timeline-progress { position: absolute; top: 15px; left: 0; height: 4px; background: var(--green); z-index: 2; transition: width 1s ease; }
+        
+        .step { z-index: 3; text-align: center; width: 20%; }
+        .dot { width: 34px; height: 34px; background: white; border: 4px solid #eee; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; color: #ccc; }
+        .step.active .dot { border-color: var(--green); color: var(--green); box-shadow: 0 0 15px rgba(46, 204, 113, 0.4); }
+        .step.done .dot { background: var(--green); border-color: var(--green); color: white; }
+        .step-label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #999; }
+        .step.active .step-label { color: var(--navy); }
 
-        /* MAIN CARD */
-        .main-card { background: white; border-radius: 8px; padding: 50px; box-shadow: 0 40px 100px rgba(0,0,0,0.08); }
-        .progress-bar-wrap { position: relative; display: flex; justify-content: space-between; margin: 60px 0; }
-        .bg-line { position: absolute; top: 25px; height: 4px; background: #eee; width: 100%; z-index: 1; }
-        .fill-line { position: absolute; top: 25px; height: 4px; background: var(--orange); width: 0%; z-index: 2; transition: width 2s ease-in-out; }
-        .step-node { position: relative; z-index: 3; text-align: center; width: 120px; }
-        .circle { width: 54px; height: 54px; background: white; border: 5px solid #eee; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; }
-        .step-node.active .circle { border-color: var(--orange); color: var(--orange); box-shadow: 0 0 20px rgba(255,98,0,0.3); }
-        .step-node.done .circle { background: var(--orange); border-color: var(--orange); color: white; }
-        .step-label { font-size: 11px; font-weight: 800; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
+        /* INFO GRID */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .info-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .info-box h4 { margin: 0 0 15px; font-size: 12px; text-transform: uppercase; color: var(--gray); letter-spacing: 1px; }
+        .info-box p { margin: 5px 0; font-weight: 700; font-size: 18px; }
 
-        /* DATA TABLE */
-        .data-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
-        .data-table th { text-align: left; padding: 15px; background: #f8f9fa; font-size: 12px; color: #777; border-bottom: 2px solid #eee; }
-        .data-table td { padding: 20px 15px; border-bottom: 1px solid #f1f1f1; font-size: 14px; }
+        /* MAP AREA */
+        .map-box { background: #000; height: 350px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+        #map-iframe { width: 100%; height: 100%; border: none; }
 
-        /* SIDEBAR */
-        .sidebar-card { background: var(--navy); color: white; padding: 40px; border-radius: 8px; position: sticky; top: 120px; overflow: hidden; }
-        .sidebar-card h3 { color: var(--orange); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 25px; font-family: 'Montserrat'; }
-        .spec-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; }
-        .spec-row label { opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
-        .spec-row span { font-weight: 700; font-size: 14px; text-align: right; }
+        /* LOGS TABLE */
+        .logs-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .logs-header { padding: 20px; background: var(--navy); color: white; font-weight: 800; text-transform: uppercase; font-size: 14px; }
+        .log-item { display: flex; padding: 20px; border-bottom: 1px solid #eee; font-size: 14px; align-items: center; }
+        .log-date { min-width: 120px; font-weight: 700; color: var(--purple); }
+        .log-desc { flex: 1; padding: 0 20px; }
+        .log-loc { color: var(--gray); font-weight: 600; font-size: 12px; }
 
-        /* MAP BOX */
-        .map-container { margin-top: 35px; height: 300px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.1); }
-        #map-embed { width: 100%; height: 100%; border: 0; }
+        /* GATEKEEPER */
+        #gatekeeper { position: fixed; inset: 0; background: white; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--purple); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* GATEKEEPER LOADER */
-        #gatekeeper { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #00ff00; font-family: monospace; }
-        .scanline { width: 250px; height: 2px; background: #00ff00; box-shadow: 0 0 15px #00ff00; animation: scan 2s linear infinite; }
-        @keyframes scan { 0% { transform: translateY(-40px); } 100% { transform: translateY(40px); } }
-
-        @media (max-width: 1024px) { 
-            .dashboard { grid-template-columns: 1fr; } 
-            .progress-bar-wrap { flex-direction: column; align-items: flex-start; gap: 40px; padding-left: 30px; } 
-            .bg-line, .fill-line { display: none; }
-            .sidebar-card { position: static; }
+        @media (max-width: 600px) {
+            .status-hero-text { font-size: 24px; }
+            .dot { width: 28px; height: 28px; font-size: 12px; }
+            .log-item { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .log-date { min-width: auto; }
         }
     </style>
 </head>
 <body>
 
 <div id="gatekeeper">
-    <div class="scanline"></div>
-    <p style="margin-top: 25px; letter-spacing: 2px;">AUTHENTICATING ACCESS...</p>
-</div>
-
-<div class="top-bar">
-    <div>SWIFT-CORE v4.5 // SECURE TERMINAL ACTIVE</div>
-    <div>HUB TIME: <span id="clock"></span></div>
+    <div class="loader"></div>
+    <p style="margin-top:20px; font-weight:bold; letter-spacing:1px; color:var(--purple)">RETRIEVING LIVE DATA...</p>
 </div>
 
 <header>
     <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
-    <div style="font-size: 11px; font-weight: bold; border: 1px solid var(--green); padding: 6px 16px; color: var(--green); border-radius: 4px; text-transform: uppercase;">Verified Secure</div>
+    <div style="font-size: 10px; font-weight: 900; background: var(--orange); padding: 4px 10px; border-radius: 4px;">SECURE PORTAL</div>
 </header>
 
-<section class="status-hero">
-    <div class="track-id-badge" id="badge-id">---</div>
-    <h1 id="hero-status-text">...</h1>
-</section>
-
-<div class="dashboard">
-    <div class="main-card">
-        <h3 style="margin-top:0; font-family:'Montserrat';">GLOBAL TRANSIT MONITOR</h3>
-        <div class="progress-bar-wrap">
-            <div class="bg-line"></div>
-            <div class="fill-line" id="progress-line-fill"></div>
-            <div class="step-node" id="s1"><div class="circle">1</div><div class="step-label">Manifested</div></div>
-            <div class="step-node" id="s2"><div class="circle">2</div><div class="step-label">Sorting</div></div>
-            <div class="step-node" id="s3"><div class="circle">3</div><div class="step-label">In Transit</div></div>
-            <div class="step-node" id="s4"><div class="circle">4</div><div class="step-label">Local Hub</div></div>
-            <div class="step-node" id="s5"><div class="circle">5</div><div class="step-label">Delivered</div></div>
+<div class="container">
+    <div class="status-card">
+        <div class="status-badge status-active" id="ui-badge">Loading...</div>
+        <div style="font-size: 12px; color: #777;">Tracking Number: <b id="ui-id">---</b></div>
+        <h1 class="status-hero-text" id="ui-status">Establishing Link...</h1>
+        
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            <div class="timeline-progress" id="ui-progress-line"></div>
+            
+            <div class="step" id="step1"><div class="dot">1</div><div class="step-label">Ordered</div></div>
+            <div class="step" id="step2"><div class="dot">2</div><div class="step-label">Hub</div></div>
+            <div class="step" id="step3"><div class="dot">3</div><div class="step-label">Transit</div></div>
+            <div class="step" id="step4"><div class="dot">4</div><div class="step-label">Delivery</div></div>
+            <div class="step" id="step5"><div class="dot">5</div><div class="step-label">Arrived</div></div>
         </div>
-
-        <h3 style="margin-top: 60px; font-family:'Montserrat';">SECURE OPERATIONAL LOGS</h3>
-        <table class="data-table">
-            <thead>
-                <tr><th>LOG ENTRY</th><th>LOCATION</th><th>ACTIVITY</th><th>STATUS</th></tr>
-            </thead>
-            <tbody id="audit-logs">
-                </tbody>
-        </table>
     </div>
 
-    <aside>
-        <div class="sidebar-card">
-            <h3>Consignment Data</h3>
-            <div class="spec-row"><label>Tracking ID</label><span id="side-id">---</span></div>
-            <div class="spec-row"><label>Service Tier</label><span>Enterprise Priority</span></div>
-            <div class="spec-row"><label>Parcel Info</label><span id="side-weight" style="color:var(--orange)">---</span></div>
-            <div class="spec-row"><label>Last Location</label><span id="side-origin">---</span></div>
-            <div class="spec-row"><label>Update Date</label><span id="side-date">---</span></div>
-            <div class="spec-row"><label>Registry</label><span style="color:var(--green)">CERTIFIED</span></div>
-            
-            <div class="map-container">
-                <iframe id="map-embed" src="" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-
-            <button onclick="window.print()" style="width:100%; margin-top:25px; padding:18px; background:var(--orange); color:white; border:none; font-weight:900; cursor:pointer; border-radius: 4px; text-transform: uppercase;">Export Document (PDF)</button>
+    <div class="info-grid">
+        <div class="info-box">
+            <h4>Current Location</h4>
+            <p id="ui-location">---</p>
+            <span style="font-size: 11px; color: #999;">Last updated: <span id="ui-date">---</span></span>
         </div>
-    </aside>
+        <div class="info-box">
+            <h4>Shipment Details</h4>
+            <p id="ui-weight">---</p>
+            <span style="font-size: 11px; color: #999;">Service: Enterprise Air Express</span>
+        </div>
+    </div>
+
+    <div class="map-box" id="ui-map-container">
+        <iframe id="ui-map-iframe" src=""></iframe>
+    </div>
+
+    <div class="logs-card">
+        <div class="logs-header">Detailed Activity History</div>
+        <div id="ui-logs-container">
+            </div>
+    </div>
+
+    <button onclick="window.print()" style="width:100%; margin-top:20px; padding:20px; background:var(--navy); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">Download Official Report</button>
 </div>
 
 <script>
-    // Your updated Google Script URL
-    const apiURL = 'https://script.google.com/macros/s/AKfycbzUCfA-n6MWC19XNELFcpeYrseZodhmxgdQ2GMJ6anDUeYpqpiBc0YeK67q8l7sgNcC/exec'; 
+    const apiURL = 'https://script.google.com/macros/s/AKfycbzUCfA-n6MWC19XNELFcpeYrseZodhmxgdQ2GMJ6anDUeYpqpiBc0YeK67q8l7sgNcC/exec';
 
-    async function initializePortal() {
-        const id = new URLSearchParams(window.location.search).get('id');
-        if(!id) return window.location.href = 'index.html';
+    async function fetchData() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const trackID = urlParams.get('id');
+
+        if (!trackID) {
+            window.location.href = 'index.html';
+            return;
+        }
 
         try {
-            const resp = await fetch(`${apiURL}?id=${encodeURIComponent(id)}`);
-            const data = await resp.json();
-            if(data && data.id) {
-                populatePortal(data);
+            const response = await fetch(`${apiURL}?id=${trackID}`);
+            const data = await response.json();
+
+            if (data && data.id) {
+                renderUI(data);
             } else {
-                handleError(id);
+                alert("ID not found in our system.");
+                window.location.href = 'index.html';
             }
-        } catch(e) {
-            handleError("Sync Failure");
+        } catch (error) {
+            console.error(error);
+            alert("Connection error. Try again later.");
         }
     }
 
-    function populatePortal(data) {
+    function renderUI(data) {
         document.getElementById('gatekeeper').style.display = 'none';
-        
-        // Populate UI from columns mapping
-        document.getElementById('badge-id').innerText = "TRACKING #" + data.id;
-        document.getElementById('hero-status-text').innerText = data.status;
-        document.getElementById('side-id').innerText = data.id;
-        document.getElementById('side-weight').innerText = data.parcelInfo || "N/A"; 
-        document.getElementById('side-origin').innerText = data.origin || "Global Hub"; 
-        document.getElementById('side-date').innerText = data.updateDate || "N/A"; 
 
-        // Map Fix
-        const mapFrame = document.getElementById('map-embed');
-        if(data.map && data.map.toString().includes('http')) {
-            mapFrame.src = data.map;
+        // Set Basic Text
+        document.getElementById('ui-id').innerText = data.id;
+        document.getElementById('ui-status').innerText = data.status;
+        document.getElementById('ui-badge').innerText = "Live Update";
+        document.getElementById('ui-location').innerText = data.origin;
+        document.getElementById('ui-weight').innerText = data.parcelInfo || "N/A";
+        document.getElementById('ui-date').innerText = data.updateDate;
+
+        // Set Map
+        const mapIframe = document.getElementById('ui-map-iframe');
+        if(data.map && data.map.includes('http')) {
+            mapIframe.src = data.map;
         } else {
-            document.querySelector('.map-container').style.display = 'none';
+            document.getElementById('ui-map-container').style.display = 'none';
         }
 
-        // Progress Logic
-        const s = data.status.toLowerCase();
-        let step = 1;
-        let fill = 0;
+        // Handle Progress Bar
+        const status = data.status.toLowerCase();
+        let progress = 0;
+        let activeStep = 0;
 
-        if (s.includes("picked") || s.includes("received")) { step = 1; fill = 0; }
-        else if (s.includes("sorting") || s.includes("hub") || s.includes("facility")) { step = 2; fill = 25; }
-        else if (s.includes("transit")) { step = 3; fill = 50; }
-        else if (s.includes("out") || s.includes("local")) { step = 4; fill = 75; }
-        else if (s.includes("delivered") || s.includes("arrived")) { step = 5; fill = 100; }
+        if (status.includes("order") || status.includes("picked")) { progress = 5; activeStep = 1; }
+        else if (status.includes("hub") || status.includes("sorting")) { progress = 25; activeStep = 2; }
+        else if (status.includes("transit")) { progress = 50; activeStep = 3; }
+        else if (status.includes("out") || status.includes("delivery")) { progress = 75; activeStep = 4; }
+        else if (status.includes("arrived") || status.includes("delivered")) { progress = 100; activeStep = 5; }
 
-        document.getElementById('progress-line-fill').style.width = fill + "%";
-        for(let i=1; i<=5; i++) {
-            const node = document.getElementById('s'+i);
-            if(i < step) node.classList.add('done');
-            if(i === step) node.classList.add('active');
+        document.getElementById('ui-progress-line').style.width = progress + "%";
+        for (let i = 1; i <= 5; i++) {
+            const el = document.getElementById('step' + i);
+            if (i < activeStep) el.classList.add('done');
+            if (i === activeStep) el.classList.add('active');
         }
 
-        // History Logs from Column I
-        const auditLogs = document.getElementById('audit-logs');
+        // Render Logs from Column I (comma separated)
+        const logContainer = document.getElementById('ui-logs-container');
         if (data.history) {
-            const events = data.history.split(',');
-            auditLogs.innerHTML = events.reverse().map(event => {
-                return `<tr>
-                    <td>LIVE FEED</td>
-                    <td>${data.origin || "Hub"}</td>
-                    <td>${event.trim()}</td>
-                    <td style="color:var(--purple); font-weight:900;">AUTHORIZED</td>
-                </tr>`;
+            const historyItems = data.history.split(',').reverse();
+            logContainer.innerHTML = historyItems.map(item => {
+                return `
+                    <div class="log-item">
+                        <div class="log-date">TIMESTAMP</div>
+                        <div class="log-desc">${item.trim()}</div>
+                        <div class="log-loc">${data.origin} Hub</div>
+                    </div>
+                `;
             }).join('');
-        } else {
-            auditLogs.innerHTML = `<tr><td colspan="4">Establishing secure history feed...</td></tr>`;
         }
     }
 
-    function handleError(msg) {
-        document.getElementById('gatekeeper').innerHTML = `
-            <h2 style="color:var(--orange)">CONSIGNMENT REJECTED</h2>
-            <p style="color:white; opacity:0.6;">Tracking ID "${msg}" not recognized.</p>
-            <button onclick="window.location.href='index.html'" style="margin-top:20px; padding:12px 25px; background:var(--purple); color:white; border:none; cursor:pointer; font-weight:bold;">EXIT TERMINAL</button>
-        `;
-    }
-
-    function updateHubClock() {
-        if(document.getElementById('clock')) document.getElementById('clock').innerText = new Date().toUTCString();
-    }
-    setInterval(updateHubClock, 1000);
-    initializePortal();
+    fetchData();
 </script>
+
 </body>
 </html>
