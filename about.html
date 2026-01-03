@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Our Operations | SwiftCourier Global</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --purple: #4D148C; --orange: #FF6200; --navy: #02060f; --white: #FFFFFF; --bg: #ffffff; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--navy); line-height: 1.6; }
+
+        /* HEADER */
+        header { background: var(--navy); padding: 25px 8%; display: flex; justify-content: space-between; align-items: center; color: white; border-bottom: 4px solid var(--purple); }
+        .logo { font-family: 'Montserrat'; font-size: 24px; font-weight: 900; text-decoration: none; color: white; }
+        .logo span { color: var(--orange); }
+
+        /* HERO SECTION */
+        .about-hero { background: var(--navy); color: white; padding: 100px 8%; text-align: center; position: relative; overflow: hidden; }
+        .about-hero h1 { font-family: 'Montserrat'; font-size: 50px; margin: 0; text-transform: uppercase; }
+        .about-hero p { max-width: 700px; margin: 20px auto; font-size: 18px; opacity: 0.8; }
+
+        /* MISSION SECTION */
+        .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 100px 8%; align-items: center; }
+        .mission-text h2 { font-family: 'Montserrat'; font-size: 36px; color: var(--purple); }
+        .mission-image { background: #f0f0f0; height: 400px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ccc; border: 2px dashed #ddd; }
+
+        /* STATS BAR */
+        .stats-bar { background: var(--purple); color: white; padding: 60px 8%; display: flex; justify-content: space-around; text-align: center; }
+        .stat-item h3 { font-family: 'Montserrat'; font-size: 40px; margin: 0; color: var(--orange); }
+        .stat-item p { margin: 5px 0 0; text-transform: uppercase; font-size: 12px; letter-spacing: 2px; }
+
+        /* CORE VALUES */
+        .values { padding: 100px 8%; background: #f9f9f9; text-align: center; }
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
+        .value-card { background: white; padding: 40px; border-bottom: 4px solid var(--orange); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .value-card h4 { font-family: 'Montserrat'; font-size: 20px; margin-bottom: 15px; color: var(--navy); }
+
+        footer { background: var(--navy); color: white; padding: 50px 8%; text-align: center; font-size: 14px; }
+
+        @media (max-width: 800px) { .mission-grid { grid-template-columns: 1fr; } .about-hero h1 { font-size: 32px; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
+</header>
+
+<section class="about-hero">
+    <h1>Global Intelligence.</h1>
+    <h1>Localized Care.</h1>
+    <p>We provide enterprise-grade logistics solutions for high-value assets across 6 continents.</p>
+</section>
+
+<div class="stats-bar">
+    <div class="stat-item"><h3>200+</h3><p>Global Hubs</p></div>
+    <div class="stat-item"><h3>15M+</h3><p>Delivered Parcels</p></div>
+    <div class="stat-item"><h3>24/7</h3><p>Secure Monitoring</p></div>
+    <div class="stat-item"><h3>99.9%</h3><p>Success Rate</p></div>
+</div>
+
+
+
+<section class="mission-grid">
+    <div class="mission-text">
+        <h2>The SwiftCourier Standard</h2>
+        <p>Founded on the principles of speed and absolute security, SwiftCourier Global has grown from a local courier service into a worldwide leader in specialized logistics.</p>
+        <p>Our infrastructure is designed to handle everything from standard e-commerce fulfillment to high-security diplomatic and medical freight. With our proprietary tracking technology, we ensure total transparency at every nautical mile.</p>
+    </div>
+    <div class="mission-image">
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Warehouse" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+    </div>
+</section>
+
+<section class="values">
+    <h2 style="font-family:'Montserrat'; font-size: 32px;">Why Choose Our Network?</h2>
+    <div class="values-grid">
+        <div class="value-card">
+            <h4>Security First</h4>
+            <p>Every shipment is protected by 256-bit data encryption and physical security protocols at every hub.</p>
+        </div>
+        <div class="value-card">
+            <h4>Global Reach</h4>
+            <p>Our partnerships with major airlines and maritime fleets allow us to deliver anywhere on the map.</p>
+        </div>
+        <div class="value-card">
+            <h4>Real-Time Tech</h4>
+            <p>Our tracking system is linked directly to our global dispatch database, providing the most accurate data in the industry.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 SwiftCourier Global Operations. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
