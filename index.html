@@ -3,212 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwiftCourier | Global Express Freight & Logistics</title>
+    <title>SwiftCourier | Premium Global Logistics</title>
     <style>
-        :root { --purple: #4D148C; --orange: #FF6200; --navy: #0a192f; --white: #ffffff; --gray: #f8f9fa; --text: #333; }
+        :root { --purple: #4D148C; --orange: #FF6200; --navy: #0a192f; --white: #ffffff; --gray: #f4f4f4; }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; scroll-behavior: smooth; color: var(--text); background: white; }
-        
-        /* Navigation */
-        nav { background: var(--white); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
-        .logo { font-size: 28px; font-weight: 900; color: var(--purple); text-decoration: none; letter-spacing: -1.5px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; background: #fff; }
+
+        /* LIVE TICKER */
+        .ticker-wrap { background: var(--navy); color: white; padding: 10px 0; overflow: hidden; font-size: 12px; font-weight: bold; }
+        .ticker { display: flex; white-space: nowrap; animation: ticker 40s linear infinite; }
+        .ticker span { margin-right: 50px; }
+        .status-dot { color: #00ff00; margin-right: 5px; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* NAV */
+        nav { background: white; padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 26px; font-weight: 900; color: var(--purple); text-decoration: none; }
         .logo span { color: var(--orange); }
-        .nav-links a { text-decoration: none; color: var(--navy); font-weight: 700; margin-left: 25px; font-size: 13px; text-transform: uppercase; transition: 0.3s; }
-        .nav-links a:hover { color: var(--orange); }
 
-        /* Hero Section */
-        .hero { 
-            background: var(--purple); 
-            background-image: linear-gradient(rgba(77,20,140,0.85), rgba(77,20,140,0.85)), url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2000');
-            background-size: cover; background-position: center;
-            padding: 140px 20px; text-align: center; color: var(--white);
-        }
-        .hero h1 { font-size: 58px; margin: 0; font-weight: 800; line-height: 1.1; }
-        .hero p { font-size: 22px; margin: 25px auto; max-width: 700px; opacity: 0.9; }
+        /* HERO */
+        .hero { background: var(--purple); padding: 100px 20px; text-align: center; color: white; background-image: linear-gradient(rgba(77,20,140,0.8), rgba(77,20,140,0.8)), url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=1500'); background-size: cover; }
+        .track-box { background: white; padding: 10px; border-radius: 50px; display: flex; max-width: 600px; margin: 30px auto; box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+        .track-box input { flex: 1; border: none; padding: 15px 25px; outline: none; border-radius: 50px; font-size: 16px; }
+        .track-box button { background: var(--orange); color: white; border: none; padding: 15px 35px; border-radius: 50px; font-weight: 900; cursor: pointer; }
 
-        /* Modern Tracking Bar */
-        .track-wrapper { 
-            background: var(--white); padding: 8px; border-radius: 12px; display: flex; 
-            max-width: 750px; margin: 50px auto 0; box-shadow: 0 25px 50px rgba(0,0,0,0.4); 
-        }
-        .track-wrapper input { flex: 1; border: none; padding: 20px 30px; font-size: 18px; outline: none; color: #333; border-radius: 8px; }
-        .track-wrapper button { background: var(--orange); color: var(--white); border: none; padding: 0 45px; border-radius: 8px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-        .track-wrapper button:hover { background: #e65a00; transform: translateY(-2px); }
+        /* CALCULATOR SECTION */
+        .calc-section { padding: 80px 10%; background: var(--gray); display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .calc-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .calc-card h2 { color: var(--purple); margin-top: 0; }
+        .calc-card input, .calc-card select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        .quote-btn { width: 100%; background: var(--purple); color: white; border: none; padding: 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        #quote-res { margin-top: 20px; font-size: 24px; color: var(--orange); font-weight: 900; text-align: center; display: none; }
 
-        /* Stats Bar */
-        .stats { background: var(--navy); color: white; padding: 60px 8%; display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; gap: 20px; }
-        .stat-box h2 { color: var(--orange); font-size: 42px; margin: 0; }
-        .stat-box p { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; }
+        /* RESTRICTED ITEMS SEARCH */
+        .search-section { padding: 60px 10%; text-align: center; }
+        .search-bar { max-width: 500px; margin: 20px auto; display: flex; gap: 10px; }
+        .search-bar input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; }
 
-        /* Section Styling */
-        .section { padding: 100px 8%; }
-        .section-header { text-align: center; max-width: 800px; margin: 0 auto 60px; }
-        .section-header h4 { color: var(--orange); text-transform: uppercase; letter-spacing: 3px; font-size: 14px; margin-bottom: 10px; }
-        .section-header h2 { font-size: 40px; color: var(--purple); margin: 0; }
+        /* WHATSAPP FLOAT */
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 9999; text-decoration: none; }
 
-        /* Services Grid */
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .service-card { background: var(--gray); padding: 50px 30px; border-radius: 20px; transition: 0.4s; border-bottom: 5px solid transparent; }
-        .service-card:hover { transform: translateY(-15px); background: white; box-shadow: 0 30px 60px rgba(0,0,0,0.1); border-color: var(--orange); }
-        .service-card i { font-size: 40px; display: block; margin-bottom: 20px; }
-        .service-card h3 { color: var(--purple); font-size: 22px; margin-bottom: 15px; }
-        .service-card p { font-size: 15px; color: #666; line-height: 1.7; }
+        /* FOOTER */
+        footer { background: var(--navy); color: white; padding: 80px 10% 40px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+        .footer-grid h4 { color: var(--orange); }
 
-        /* Why Choose Us Section */
-        .advantage-section { background: var(--navy); color: white; display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
-        .advantage-img { height: 100%; min-height: 500px; background: url('https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&q=80&w=1000') center/cover; }
-        .advantage-content { padding: 80px; }
-        .advantage-item { margin-bottom: 35px; }
-        .advantage-item h3 { color: var(--orange); margin-bottom: 10px; }
-
-        /* Process Steps */
-        .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .step-num { width: 50px; height: 50px; background: var(--purple); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: 800; font-size: 20px; }
-
-        /* Footer */
-        footer { background: var(--navy); color: white; padding: 100px 8% 40px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 60px; }
-        .footer-col h4 { color: var(--orange); margin-bottom: 25px; text-transform: uppercase; font-size: 14px; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li { margin-bottom: 15px; font-size: 14px; opacity: 0.7; }
-        .footer-col a { color: white; text-decoration: none; }
-
-        @media (max-width: 900px) {
-            .services-grid, .stats, .footer-grid, .advantage-section, .process-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 38px; }
-            .track-wrapper { flex-direction: column; border-radius: 12px; }
-            .track-wrapper button { padding: 20px; margin-top: 10px; }
-        }
+        @media (max-width: 768px) { .calc-section, .footer-grid { grid-template-columns: 1fr; } .track-box { flex-direction: column; border-radius: 15px; } }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
-        <div class="nav-links">
-            <a href="#about">Our Story</a>
-            <a href="#services">Freight Services</a>
-            <a href="#process">How it Works</a>
-            <a href="tracking.html" style="color: var(--orange)">Track Portal</a>
-        </div>
-    </nav>
+<div class="ticker-wrap">
+    <div class="ticker">
+        <span><b class="status-dot">●</b> JFK - NEW YORK: OPERATIONAL</span>
+        <span><b class="status-dot">●</b> DXB - DUBAI: OPERATIONAL</span>
+        <span><b class="status-dot">●</b> LOS - LAGOS: OPERATIONAL</span>
+        <span><b class="status-dot">●</b> SIN - SINGAPORE: OPERATIONAL</span>
+        <span><b class="status-dot">●</b> LHR - LONDON: OPERATIONAL</span>
+        <span><b class="status-dot">●</b> HND - TOKYO: OPERATIONAL</span>
+        <span><b class="status-dot">●</b> HKG - HONG KONG: OPERATIONAL</span>
+        <span><b class="status-dot">●</b> FRA - FRANKFURT: OPERATIONAL</span>
+        <span><b class="status-dot">●</b> SYD - SYDNEY: OPERATIONAL</span>
+        <span><b class="status-dot">●</b> BOM - MUMBAI: OPERATIONAL</span>
+    </div>
+</div>
 
-    <div class="hero">
-        <h1>Global Freight. <br>Relentless Speed.</h1>
-        <p>Connecting supply chains across 220 countries with real-time AI-powered tracking and secure logistics handling.</p>
-        <div class="track-wrapper">
-            <input type="text" id="shipId" placeholder="Enter Consignment ID (e.g. SC-100)">
-            <button onclick="handleTrack()">Track Shipment</button>
+<nav>
+    <a href="#" class="logo">Swift<span>Courier</span></a>
+    <div style="font-weight: bold; font-size: 12px;">GLOBAL DISPATCH: +234 816 057 1418</div>
+</nav>
+
+<div class="hero">
+    <h1>White-Glove Global Freight</h1>
+    <p>Premium Logistics for High-Value Assets. Secure. Swift. Everywhere.</p>
+    <div class="track-box">
+        <input type="text" id="shipId" placeholder="Enter Tracking ID (e.g. SC-101)">
+        <button onclick="handleTrack()">Track</button>
+    </div>
+</div>
+
+<div class="calc-section">
+    <div>
+        <h2 style="color:var(--purple); font-size: 40px;">Premium Shipping Quote</h2>
+        <p>Our rates reflect our commitment to 100% security and priority handling. We provide a luxury logistics experience that average carriers cannot match.</p>
+    </div>
+    <div class="calc-card">
+        <h3>Rate Calculator</h3>
+        <label class="label">Approx Weight (kg)</label>
+        <input type="number" id="weight" placeholder="Weight in KG">
+        <label class="label">Destination Region</label>
+        <select id="region">
+            <option value="1">North America (HQ Hub)</option>
+            <option value="1.2">Africa / Middle East</option>
+            <option value="1.1">Europe</option>
+            <option value="1.3">Asia / Pacific</option>
+        </select>
+        <button class="quote-btn" onclick="calcQuote()">Get Instant Estimate</button>
+        <div id="quote-res"></div>
+    </div>
+</div>
+
+<div class="search-section">
+    <h2>Compliance Search</h2>
+    <p>Check if your item is permitted for global transit.</p>
+    <div class="search-bar">
+        <input type="text" id="itemSearch" placeholder="e.g. Lithium Batteries, Alcohol, Cash...">
+        <button onclick="checkItem()" style="padding:10px 20px; background:var(--navy); color:white; border:none; border-radius:5px; cursor:pointer;">Check</button>
+    </div>
+    <p id="search-out" style="font-weight:bold; color:var(--purple);"></p>
+</div>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h4>REGIONAL HQ</h4>
+            <p><b>North America:</b><br>1221 Avenue of the Americas,<br>New York, NY 10020</p>
+            <p><b>Africa:</b><br>Victoria Island, Lagos</p>
+        </div>
+        <div>
+            <h4>CONTACT US</h4>
+            <p>menaray2227@gmail.com</p>
+            <p>+234 816 057 1418</p>
+        </div>
+        <div>
+            <h4>SERVICES</h4>
+            <p>Air Charter</p>
+            <p>Ocean Freight</p>
+            <p>Cold Chain</p>
+        </div>
+        <div>
+            <h4>SHIP NOW</h4>
+            <button onclick="location.href='mailto:menaray2227@gmail.com'" style="background:var(--orange); border:none; color:white; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer;">Contact Dispatch</button>
         </div>
     </div>
+</footer>
 
-    <div class="stats">
-        <div class="stat-box"><h2>220+</h2><p>Countries Served</p></div>
-        <div class="stat-box"><h2>1.5M</h2><p>Tons Moved Yearly</p></div>
-        <div class="stat-box"><h2>0.02s</h2><p>Tracking Latency</p></div>
-        <div class="stat-box"><h2>24/7</h2><p>Dispatch Support</p></div>
-    </div>
+<a href="https://wa.me/2348160571418" class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
+</a>
 
-    <section class="section" id="about">
-        <div class="section-header">
-            <h4>Global Presence</h4>
-            <h2>World Class Logistics Infrastructure</h2>
-            <p>SwiftCourier isn't just a delivery company. We are a technology-first logistics partner that owns and operates major distribution hubs in Dubai, Singapore, and London.</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>✈️ Air Freight</h3>
-                <p>Express boarding for high-priority shipments. We utilize global flight networks to ensure your cargo arrives within 24-48 hours anywhere in the world.</p>
-            </div>
-            <div class="service-card">
-                <h3>🚢 Ocean Cargo</h3>
-                <p>Reliable and cost-effective shipping for bulk inventory. Full container (FCL) and Less-than-container (LCL) options with port-to-door security.</p>
-            </div>
-            <div class="service-card">
-                <h3>🚚 Road Express</h3>
-                <p>Smart-routed trucking networks for cross-border and local last-mile delivery. Fleet equipped with live GPS and temperature control.</p>
-            </div>
-        </div>
-    </section>
+<script>
+    function handleTrack() {
+        const id = document.getElementById('shipId').value.trim();
+        if(!id) return alert("Please enter a Tracking ID.");
+        window.location.href = "tracking.html?id=" + encodeURIComponent(id);
+    }
 
-    <section class="advantage-section">
-        <div class="advantage-img"></div>
-        <div class="advantage-content">
-            <h4>The SwiftAdvantage</h4>
-            <h2 style="font-size: 36px; margin-bottom: 30px;">Why Global Leaders Choose Us</h2>
-            <div class="advantage-item">
-                <h3>Advanced Telemetrics</h3>
-                <p>Our tracking system provides more than just a location. It provides humidity, temperature, and shock-detection data for sensitive cargo.</p>
-            </div>
-            <div class="advantage-item">
-                <h3>Customs Brokerage</h3>
-                <p>We handle all international documentation and tax compliance, ensuring your shipments never get stuck at borders.</p>
-            </div>
-            <div class="advantage-item">
-                <h3>End-to-End Security</h3>
-                <p>From the moment of pickup to the final signature, your assets are protected by our proprietary secure-chain protocol.</p>
-            </div>
-        </div>
-    </section>
+    function calcQuote() {
+        const weight = document.getElementById('weight').value;
+        const region = document.getElementById('region').value;
+        if(!weight || weight <= 0) return alert("Please enter weight.");
+        
+        // Logic: $25 per KG * Region Multiplier + $50 Premium Fee
+        const total = (weight * 25 * region) + 50;
+        const res = document.getElementById('quote-res');
+        res.style.display = "block";
+        res.innerHTML = "Estimated Quote: $" + total.toFixed(2);
+    }
 
-    <section class="section" id="process">
-        <div class="section-header">
-            <h4>Simple & Secure</h4>
-            <h2>How to Ship with Swift</h2>
-        </div>
-        <div class="process-grid">
-            <div><div class="step-num">1</div><h3>Book</h3><p>Schedule your pickup online or via our corporate API.</p></div>
-            <div><div class="step-num">2</div><h3>Label</h3><p>Affix the unique SwiftID barcoded label to your cargo.</p></div>
-            <div><div class="step-num">3</div><h3>Transit</h3><p>Monitor your cargo's live GPS journey across the globe.</p></div>
-            <div><div class="step-num">4</div><h3>Deliver</h3><p>Proof-of-delivery is uploaded instantly upon arrival.</p></div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-grid">
-            <div>
-                <div class="logo" style="color:white; margin-bottom:20px;">SWIFT<span>COURIER</span></div>
-                <p style="opacity:0.6; font-size:14px; line-height:1.8;">Leading the way in global freight forwarding and secure logistics management since 2005. Trusted by 500+ Fortune 500 companies.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Solutions</h4>
-                <ul>
-                    <li><a href="#">Supply Chain</a></li>
-                    <li><a href="#">Warehousing</a></li>
-                    <li><a href="#">E-commerce</a></li>
-                    <li><a href="#">Specialized Cargo</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Corporate</h4>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Sustainability</a></li>
-                    <li><a href="#">Investor Relations</a></li>
-                    <li><a href="#">Careers</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="tracking.html">Track a Parcel</a></li>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-        <p style="text-align:center; font-size:12px; opacity:0.4; margin-top:50px;">
-            &copy; 2026 SwiftCourier Express International. All Rights Reserved.
-        </p>
-    </footer>
-
-    <script>
-        function handleTrack() {
-            const id = document.getElementById('shipId').value.trim();
-            if(!id) return alert("Please enter a Tracking ID.");
-            window.location.href = "tracking.html?id=" + encodeURIComponent(id);
+    function checkItem() {
+        const item = document.getElementById('itemSearch').value.toLowerCase();
+        const out = document.getElementById('search-out');
+        const banned = ['battery', 'alcohol', 'cash', 'money', 'weapon', 'drug', 'firework', 'perfume', 'gas'];
+        
+        let isBanned = banned.some(b => item.includes(b));
+        if(isBanned) {
+            out.innerHTML = "❌ Restricted: This item requires special diplomatic clearance or is banned.";
+            out.style.color = "red";
+        } else {
+            out.innerHTML = "✅ Permitted: Standard SwiftCourier premium transit allowed.";
+            out.style.color = "green";
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
