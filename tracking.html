@@ -42,18 +42,16 @@
         .data-table th { text-align: left; padding: 15px; background: #f8f9fa; font-size: 12px; color: #777; border-bottom: 2px solid #eee; }
         .data-table td { padding: 20px 15px; border-bottom: 1px solid #f1f1f1; font-size: 14px; }
 
-        /* SIDEBAR - THE FIX IS HERE */
+        /* SIDEBAR */
         .sidebar-card { background: var(--navy); color: white; padding: 40px; border-radius: 8px; position: sticky; top: 120px; overflow: hidden; }
         .sidebar-card h3 { color: var(--orange); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 25px; font-family: 'Montserrat'; }
-        
         .spec-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; }
         .spec-row label { opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
-        .spec-row span { font-weight: 700; font-size: 15px; text-align: right; }
-        .weight-val { color: var(--orange); font-size: 18px !important; }
+        .spec-row span { font-weight: 700; font-size: 14px; text-align: right; }
 
-        /* MAP BOX FIX */
-        .map-container { margin-top: 35px; height: 300px; border-radius: 8px; overflow: hidden; background: #000; position: relative; border: 1px solid rgba(255,255,255,0.1); }
-        #map-embed { width: 100%; height: 100%; border: 0; filter: contrast(1.1) brightness(0.9); }
+        /* MAP BOX */
+        .map-container { margin-top: 35px; height: 300px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.1); }
+        #map-embed { width: 100%; height: 100%; border: 0; }
 
         /* GATEKEEPER LOADER */
         #gatekeeper { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #00ff00; font-family: monospace; }
@@ -72,41 +70,41 @@
 
 <div id="gatekeeper">
     <div class="scanline"></div>
-    <p style="margin-top: 25px; letter-spacing: 2px;">AUTHORIZING ACCESS...</p>
+    <p style="margin-top: 25px; letter-spacing: 2px;">AUTHENTICATING ACCESS...</p>
 </div>
 
 <div class="top-bar">
-    <div>SYSTEM: SWIFT-CORE v4.2 // SECURITY: ACTIVE</div>
+    <div>SWIFT-CORE v4.5 // SECURE TERMINAL ACTIVE</div>
     <div>HUB TIME: <span id="clock"></span></div>
 </div>
 
 <header>
     <a href="index.html" class="logo">SWIFT<span>COURIER</span></a>
-    <div style="font-size: 11px; font-weight: bold; border: 1px solid var(--green); padding: 6px 16px; color: var(--green); border-radius: 4px; text-transform: uppercase;">Secure Terminal</div>
+    <div style="font-size: 11px; font-weight: bold; border: 1px solid var(--green); padding: 6px 16px; color: var(--green); border-radius: 4px; text-transform: uppercase;">Verified Secure</div>
 </header>
 
 <section class="status-hero">
-    <div class="track-id-badge" id="badge-id">LOADING...</div>
-    <h1 id="hero-status-text">RETRIEVING DATA</h1>
+    <div class="track-id-badge" id="badge-id">---</div>
+    <h1 id="hero-status-text">...</h1>
 </section>
 
 <div class="dashboard">
     <div class="main-card">
-        <h3 style="margin-top:0; font-family:'Montserrat';">LIVE LIFECYCLE MONITOR</h3>
+        <h3 style="margin-top:0; font-family:'Montserrat';">GLOBAL TRANSIT MONITOR</h3>
         <div class="progress-bar-wrap">
             <div class="bg-line"></div>
             <div class="fill-line" id="progress-line-fill"></div>
-            <div class="step-node" id="s1"><div class="circle">1</div><div class="step-label">Ordered</div></div>
-            <div class="step-node" id="s2"><div class="circle">2</div><div class="step-label">Hub Export</div></div>
+            <div class="step-node" id="s1"><div class="circle">1</div><div class="step-label">Manifested</div></div>
+            <div class="step-node" id="s2"><div class="circle">2</div><div class="step-label">Sorting</div></div>
             <div class="step-node" id="s3"><div class="circle">3</div><div class="step-label">In Transit</div></div>
-            <div class="step-node" id="s4"><div class="circle">4</div><div class="step-label">Destination</div></div>
+            <div class="step-node" id="s4"><div class="circle">4</div><div class="step-label">Local Hub</div></div>
             <div class="step-node" id="s5"><div class="circle">5</div><div class="step-label">Delivered</div></div>
         </div>
 
-        <h3 style="margin-top: 60px; font-family:'Montserrat';">SECURITY AUDIT LOGS</h3>
+        <h3 style="margin-top: 60px; font-family:'Montserrat';">SECURE OPERATIONAL LOGS</h3>
         <table class="data-table">
             <thead>
-                <tr><th>LOG TIMESTAMP</th><th>CURRENT FACILITY</th><th>PROTOCOL EVENT</th><th>STATUS</th></tr>
+                <tr><th>LOG ENTRY</th><th>LOCATION</th><th>ACTIVITY</th><th>STATUS</th></tr>
             </thead>
             <tbody id="audit-logs">
                 </tbody>
@@ -115,25 +113,26 @@
 
     <aside>
         <div class="sidebar-card">
-            <h3>Shipment Specs</h3>
+            <h3>Consignment Data</h3>
             <div class="spec-row"><label>Tracking ID</label><span id="side-id">---</span></div>
-            <div class="spec-row"><label>Service Class</label><span>Enterprise Priority</span></div>
-            <div class="spec-row"><label>Gross Weight</label><span id="side-weight" class="weight-val">---</span></div>
-            <div class="spec-row"><label>Origin</label><span id="side-origin">---</span></div>
-            <div class="spec-row"><label>Destination</label><span id="side-dest">---</span></div>
-            <div class="spec-row"><label>Insurance</label><span style="color:var(--green)">COVERED</span></div>
+            <div class="spec-row"><label>Service Tier</label><span>Enterprise Priority</span></div>
+            <div class="spec-row"><label>Parcel Info</label><span id="side-weight" style="color:var(--orange)">---</span></div>
+            <div class="spec-row"><label>Last Location</label><span id="side-origin">---</span></div>
+            <div class="spec-row"><label>Update Date</label><span id="side-date">---</span></div>
+            <div class="spec-row"><label>Registry</label><span style="color:var(--green)">CERTIFIED</span></div>
             
             <div class="map-container">
                 <iframe id="map-embed" src="" allowfullscreen="" loading="lazy"></iframe>
             </div>
 
-            <button onclick="window.print()" style="width:100%; margin-top:25px; padding:18px; background:var(--orange); color:white; border:none; font-weight:900; cursor:pointer; border-radius: 4px; text-transform: uppercase;">Print Official Manifest</button>
+            <button onclick="window.print()" style="width:100%; margin-top:25px; padding:18px; background:var(--orange); color:white; border:none; font-weight:900; cursor:pointer; border-radius: 4px; text-transform: uppercase;">Export Document (PDF)</button>
         </div>
     </aside>
 </div>
 
 <script>
-    const apiURL = 'https://script.google.com/macros/s/AKfycbxrZ2ZuqFVIAjEg8x16GXy1V0KHcMiqyJPH3PXeWnWYZizGCxy2kUKfjlcFYhos5FI/exec'; 
+    // Your updated Google Script URL
+    const apiURL = 'https://script.google.com/macros/s/AKfycbzUCfA-n6MWC19XNELFcpeYrseZodhmxgdQ2GMJ6anDUeYpqpiBc0YeK67q8l7sgNcC/exec'; 
 
     async function initializePortal() {
         const id = new URLSearchParams(window.location.search).get('id');
@@ -148,20 +147,20 @@
                 handleError(id);
             }
         } catch(e) {
-            handleError("Timeout");
+            handleError("Sync Failure");
         }
     }
 
     function populatePortal(data) {
         document.getElementById('gatekeeper').style.display = 'none';
         
-        // Populate Strings
+        // Populate UI from columns mapping
         document.getElementById('badge-id').innerText = "TRACKING #" + data.id;
         document.getElementById('hero-status-text').innerText = data.status;
         document.getElementById('side-id').innerText = data.id;
-        document.getElementById('side-weight').innerText = (data.weight || "0.0") + " KG";
-        document.getElementById('side-origin').innerText = data.origin || "Global Hub";
-        document.getElementById('side-dest').innerText = data.destination || "Secured Address";
+        document.getElementById('side-weight').innerText = data.parcelInfo || "N/A"; 
+        document.getElementById('side-origin').innerText = data.origin || "Global Hub"; 
+        document.getElementById('side-date').innerText = data.updateDate || "N/A"; 
 
         // Map Fix
         const mapFrame = document.getElementById('map-embed');
@@ -171,15 +170,15 @@
             document.querySelector('.map-container').style.display = 'none';
         }
 
-        // Status Logic
+        // Progress Logic
         const s = data.status.toLowerCase();
         let step = 1;
         let fill = 0;
 
-        if (s.includes("origin") || s.includes("ordered")) { step = 1; fill = 0; }
-        else if (s.includes("export") || s.includes("hub") || s.includes("departed")) { step = 2; fill = 25; }
-        else if (s.includes("transit") || s.includes("shipped")) { step = 3; fill = 50; }
-        else if (s.includes("destination") || s.includes("delivery")) { step = 4; fill = 75; }
+        if (s.includes("picked") || s.includes("received")) { step = 1; fill = 0; }
+        else if (s.includes("sorting") || s.includes("hub") || s.includes("facility")) { step = 2; fill = 25; }
+        else if (s.includes("transit")) { step = 3; fill = 50; }
+        else if (s.includes("out") || s.includes("local")) { step = 4; fill = 75; }
         else if (s.includes("delivered") || s.includes("arrived")) { step = 5; fill = 100; }
 
         document.getElementById('progress-line-fill').style.width = fill + "%";
@@ -189,23 +188,28 @@
             if(i === step) node.classList.add('active');
         }
 
-        // Audit Logs
-        const logs = [
-            { d: "SYSTEM LIVE", l: data.origin || "HUB", e: "Status set to: " + data.status, s: "VERIFIED" },
-            { d: "HUB CHECK", l: "Global Dispatch", e: "Customs declaration and manifest validated.", s: "COMPLETE" },
-            { d: "INIT", l: "System Central", e: "Secure transit request logged.", s: "SECURE" }
-        ];
-
-        document.getElementById('audit-logs').innerHTML = logs.map(l => `
-            <tr><td>${l.d}</td><td>${l.l}</td><td>${l.e}</td><td style="color:var(--purple); font-weight:900;">${l.s}</td></tr>
-        `).join('');
+        // History Logs from Column I
+        const auditLogs = document.getElementById('audit-logs');
+        if (data.history) {
+            const events = data.history.split(',');
+            auditLogs.innerHTML = events.reverse().map(event => {
+                return `<tr>
+                    <td>LIVE FEED</td>
+                    <td>${data.origin || "Hub"}</td>
+                    <td>${event.trim()}</td>
+                    <td style="color:var(--purple); font-weight:900;">AUTHORIZED</td>
+                </tr>`;
+            }).join('');
+        } else {
+            auditLogs.innerHTML = `<tr><td colspan="4">Establishing secure history feed...</td></tr>`;
+        }
     }
 
     function handleError(msg) {
         document.getElementById('gatekeeper').innerHTML = `
-            <h2 style="color:var(--orange)">CONSIGNMENT ERROR</h2>
-            <p style="color:white; opacity:0.6;">ID "${msg}" not found in our secure database.</p>
-            <button onclick="window.location.href='index.html'" style="margin-top:20px; padding:12px 25px; background:var(--purple); color:white; border:none; cursor:pointer; font-weight:bold;">RETURN TO TERMINAL</button>
+            <h2 style="color:var(--orange)">CONSIGNMENT REJECTED</h2>
+            <p style="color:white; opacity:0.6;">Tracking ID "${msg}" not recognized.</p>
+            <button onclick="window.location.href='index.html'" style="margin-top:20px; padding:12px 25px; background:var(--purple); color:white; border:none; cursor:pointer; font-weight:bold;">EXIT TERMINAL</button>
         `;
     }
 
@@ -215,6 +219,5 @@
     setInterval(updateHubClock, 1000);
     initializePortal();
 </script>
-
 </body>
 </html>
